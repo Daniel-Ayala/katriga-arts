@@ -1,3 +1,4 @@
+function renderShader() {
 // Initialize WebGL
 const canvas = document.getElementById("shader-canvas");
 const gl =
@@ -229,9 +230,8 @@ function render(time) {
   time *= 0.001; // Convert to seconds
 
   // Clear the canvas
-  gl.clearColor(0, 0, 0, 0);
-  gl.clear(gl.COLOR_BUFFER_BIT);
-
+  gl.clearColor(0, 0, 0, 1);
+  
   // Use our program
   gl.useProgram(program);
 
@@ -251,3 +251,7 @@ function render(time) {
 }
 
 requestAnimationFrame(render);
+console.log("Shader initialized and rendering started.");
+}
+
+document.addEventListener("DOMContentLoaded", renderShader);
