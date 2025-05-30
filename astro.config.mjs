@@ -12,7 +12,6 @@ export default defineConfig({
   integrations: [react()],
   adapter: cloudflare(),
   security: {
-		// Change to false to have API work
-		checkOrigin: false
-  }
+	checkOrigin: false,
+  },
 });
