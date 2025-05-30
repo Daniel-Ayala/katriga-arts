@@ -5,6 +5,8 @@ const gl =
 
 if (!gl) {
   alert("WebGL not supported");
+  // Set background color to black
+  canvas.style.backgroundColor = "black";
 }
 
 // Resize canvas to fill the screen

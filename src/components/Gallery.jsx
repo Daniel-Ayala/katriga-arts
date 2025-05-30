@@ -121,7 +121,6 @@ const Gallery = ({
         pageSize: pageSize,
         page: nextPage,
       });
-      console.log(contents);
       // Make API request
       const response = await fetch(`/api/gallery`, {
         method: "POST",
@@ -131,7 +130,6 @@ const Gallery = ({
         body: contents,
       });
       const data = await response.json();
-      console.log(data.items);
 
       // If no more items, disable the button
       if (data.items.length === 0) {

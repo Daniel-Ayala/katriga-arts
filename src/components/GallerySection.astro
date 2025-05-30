@@ -2,7 +2,7 @@
 import Gallery from "./Gallery.jsx";
 import Copyright from "./Copyright.astro";
 import { GET } from "../pages/api/gallery.ts";
-import { items } from "../pages/api/gallery";
+import { items } from "../pages/api/gallery.ts";
 import '../styles/gallery.css';
 
 export function getGalleryItems(page = 1, pageSize = 10) {
