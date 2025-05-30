@@ -1,0 +1,49 @@
+---
+import Gallery from "./Gallery.jsx";
+import Copyright from "./Copyright.astro";
+import { GET } from "../pages/api/gallery.ts";
+import { items } from "../pages/api/gallery";
+import '../styles/gallery.css';
+
+export function getGalleryItems(page = 1, pageSize = 10) {
+  let startIndex = (page - 1) * pageSize;
+  let endIndex = startIndex + pageSize;
+  let paginatedItems = items.slice(startIndex, endIndex);
+  
+  return {
+    items: paginatedItems,
+    total: items.length,
+    page: page,
+    pageSize: pageSize,
+  };
+}
+
+// types.ts
+export interface GalleryItemType {
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+  category: string;
+}
+export interface GalleryType {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  items: GalleryItemType[];
+}
+
+// Data section
+const pageSize = 20;
+let initialItems = getGalleryItems(1, pageSize).items;
+---
+
+<Gallery client:only
+  title="Gallery"
+  subtitle="A collection of my works, from fast sketches to more ambitious projects."
+  buttonText="Load More"
+  initialItems={initialItems},
+  pageSize={pageSize}
+/>
+
+<Copyright />

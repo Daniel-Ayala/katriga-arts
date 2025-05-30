@@ -1,0 +1,26 @@
+---
+interface Props {
+  name: string;
+  progress: number;
+  delay: number;
+}
+
+const { name, progress, delay } = Astro.props;
+---
+
+<div
+  class="skill-item animate-reveal"
+  x-data="{ progress: 0 }"
+  x-init={`setTimeout(() => progress = ${progress}, ${delay})`}
+>
+  <div class="flex justify-between mb-2">
+    <span class="text-neutral-200 font-medium">{name}</span>
+    <span class="text-white font-medium" x-text="`${progress}%`"></span>
+  </div>
+  <div class="w-full bg-neutral-700 rounded-full h-3 overflow-hidden">
+    <div
+      class="bg-gradient-to-r from-grey-100 to-white h-full rounded-full transition-all duration-1000"
+      :style="{ width: `${progress}%` }"
+    ></div>
+  </div>
+</div>

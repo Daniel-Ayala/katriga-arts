@@ -1,0 +1,94 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+// TypeScript interface
+interface PrivacyData {
+  title: string;
+  subtitle: string;
+  content: string;
+}
+
+// Terms of Service data
+const termsData: PrivacyData = {
+  title: 'Terms of Service',
+  subtitle:
+    'By accessing or using our services, you agree to these terms.',
+  content: `
+    <p>These Terms of Service govern your use of Foliograph’s website and services. By accessing or using our services, you agree to these terms.</p>
+
+    <h2>Acceptance of Terms</h2>
+    <p>By accessing or using the Foliograph website or any of our photography services, you agree to be bound by these Terms of Service ("Terms"). If you do not agree, please do not use our services.</p>
+
+    <h2>Use of Services</h2>
+    <p>You agree to use our services only for lawful purposes and in accordance with these Terms. You are prohibited from:</p>
+    <ul>
+      <li>Using our services in a way that violates any applicable laws or regulations.</li>
+      <li>Attempting to interfere with the functionality or security of our website.</li>
+      <li>Reproducing, distributing, or modifying any content from our website without permission.</li>
+      <li>Using our services to harass, abuse, or harm others.</li>
+    </ul>
+
+    <h2>Booking and Payment</h2>
+    <p>When booking our photography services, you agree to the following:</p>
+    <ul>
+      <li>Provide accurate and complete information during the booking process.</li>
+      <li>Make payments as outlined in the service agreement.</li>
+      <li>Non-refunded deposits may be required for certain services.</li>
+      <li>Payments must be made via approved methods (e.g., credit card, bank transfer).</li>
+    </ul>
+
+    <h2>Cancellation and Refunds</h2>
+    <p>Our cancellation and refund policies are as follows:</p>
+    <ul>
+      <li>Cancellations made more than 7 days before the scheduled service may receive a full refund, minus any non-refunded deposits.</li>
+      <li>Cancellations within 7 days may incur a cancellation fee.</li>
+      <li>No refunds will be issued for no-shows or cancellations within 24 hours of the service.</li>
+      <li>Refunds, if applicable, will be processed within 14 business days.</li>
+    </ul>
+
+    <h2>Intellectual Property</h2>
+    <p>All content on our website, including photographs, text, and designs, is owned by Foliograph or our licensors. You may not use, reproduce, or distribute our content without prior written permission.</p>
+
+    <h2>Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, Foliograph shall not be liable for any indirect, incidental, or consequential damages arising from your use of our services or website. Our liability is limited to the amount paid for the service in question.</p>
+
+    <h2>Termination</h2>
+    <p>We reserve the right to terminate or suspend your access to our services at our discretion, without notice, for conduct that violates these Terms or is harmful to other users or our business.</p>
+
+    <h2>Changes to These Terms</h2>
+    <p>We may update these Terms of Service from time to time. Changes will be posted on this page with an updated "Last Revised" date. Continued use of our services after changes constitutes acceptance of the new Terms.</p>
+    <p>Last Revised: April 17, 2025</p>
+
+    <h2>Contact Us</h2>
+    <p>If you have questions about these Terms of Service, please contact us at:</p>
+    <ul>
+      <li>Email: <a href="mailto:Lightestcode@gmail.com">Lightestcode@gmail.com</a></li>
+      <li>Phone: +1 (555) 123-4567</li>
+      <li>Address: 123 Photography Lane, Creative City, USA</li>
+    </ul>
+  `,
+};
+---
+
+<PageLayout>
+  <!-- Render Terms of Service Content -->
+  <div class="max-w-4xl px-4 mx-auto">
+    <div class="relative text-center mb-12">
+      <h1
+        class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal"
+      >
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-300"
+        >
+          {termsData.title}
+        </span>
+      </h1>
+      <p
+        class="text-lg text-neutral-200 max-w-2xl mx-auto font-light mt-4 animate-reveal"
+      >
+        {termsData.subtitle}
+      </p>
+    </div>
+    <div class="post-content animate-reveal" set:html={termsData.content} />
+  </div>
+</PageLayout>

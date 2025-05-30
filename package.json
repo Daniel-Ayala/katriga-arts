@@ -1,0 +1,32 @@
+{
+  "name": "foliograph",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@splidejs/splide": "^4.1.4",
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "alpinejs": "^3.14.9",
+    "animejs": "^4.0.2",
+    "astro": "^5.7.8",
+    "glightbox": "^3.3.1",
+    "imagesloaded": "^5.0.0",
+    "masonry-layout": "^4.2.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.4",
+    "turso": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
+    "@types/imagesloaded": "^4.1.6"
+  }
+}

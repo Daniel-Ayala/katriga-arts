@@ -1,0 +1,120 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+// TypeScript interface
+interface PrivacyData {
+  title: string;
+  subtitle: string;
+  content: string;
+}
+
+// Documentation data
+const docData: PrivacyData = {
+  title: 'Documentation',
+  subtitle:
+    'Step-by-step guide to setup and customization.',
+  content: `
+    <p>Get started with Foliograph, a portfolio template for photographers, with this step-by-step guide to setup and customization.</p>
+
+    <h2>Setup and Installation</h2>
+
+    <h3>Step 1: Prepare Your Tools</h3>
+    <p>Ensure you have the necessary tools installed on your system before setting up the Foliograph template.</p>
+    <ul>
+      <li><strong>Node.js and npm:</strong> Download and install from <a href="https://nodejs.org" target="_blank">nodejs.org</a>.</li>
+      <li><strong>Code Editor:</strong> Use Visual Studio Code, Sublime Text, or any editor of your choice.</li>
+      <li><strong>Terminal:</strong> A command-line interface (Terminal).</li>
+    </ul>
+
+    <h3>Step 2: Open the Project</h3>
+    <p>Download or clone the Foliograph template and open it in your code editor.</p>
+    <ul>
+      <li>Unzip the template folder</li>
+      <li>Open the project folder in your code editor (e.g., VS Code).</li>
+      <li>Navigate to the root directory in your terminal.</li>
+    </ul>
+
+    <h3>Step 3: Install Dependencies and Run the Project</h3>
+    <p>Install dependencies and start the development server using npm.</p>
+    <ul>
+      <li><code>npm install</code>: Installs all project dependencies.</li>
+      <li><code>npm run dev</code>: Starts the development server (usually at <code>http://localhost:4321</code>).</li>
+      <li><code>npm run build</code>: Builds the production-ready files.</li>
+    </ul>
+
+    <h3>Step 4: Customize Appearance</h3>
+    <p>Personalize the template by modifying styles, content, and data to match your photography portfolio.</p>
+    <ul>
+      <li>Edit Astro files <code>src/pages</code> (e.g., <code>index.astro</code>, <code>blogs.astro</code>) to update content.</li>
+      <li>Replace images in <code>public/img</code> with your portfolio photos.</li>
+    </ul>
+
+    <h2>Customization</h2>
+
+    <h3>1. Customize Style Tailwind</h3>
+    <p>Foliograph uses Tailwind CSS for styling. You can customize the global styles in <code>src/styles/global.css</code> or apply Tailwind classes directly in HTML files.</p>
+    <ul>
+      <li>Edit <code>src/styles/global.css</code> to modify colors, fonts, or spacing (e.g., change <code>--color-bg</code>).</li>
+      <li>Add Tailwind classes directly in HTML files for quick styling (e.g., <code>bg-blue-500</code>, <code>text-2xl</code>).</li>
+    </ul>
+
+    <h3>2. Add Custom CSS</h3>
+    <p>For styles beyond Tailwind’s utility classes, add custom CSS directly in <code>src/styles/global.css</code>.</p>
+    <ul>
+      <li>Create custom animations, keyframes, or complex layouts.</li>
+      <li>Override default styles for specific components (e.g., sidebar, buttons).</li>
+    </ul>
+<pre><code>
+@import "tailwindcss";
+@theme {
+    --font-sans: 'Raleway', sans-serif;
+    --color-bg: #0E1117;
+    --color-body: #F4F4F4;
+    --color-accent: #fde047;
+    --color-hoveraccent: #ffdd2c;
+    --color-bgsidebar: #282828;
+}
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-neutral-200, currentColor);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: theme(--color-gray-400);
+  }
+  button, [role="button"] {
+    cursor: pointer;
+  }
+}
+@custom-variant dark (&:where(.dark, .dark *));
+</code></pre>
+  `,
+};
+---
+
+<PageLayout>
+  <!-- Render Documentation Content -->
+  <div class="max-w-4xl px-4 mx-auto">
+    <div class="relative text-center mb-12">
+      <h1
+        class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal"
+      >
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-300"
+        >
+          {docData.title}
+        </span>
+      </h1>
+      <p
+        class="text-lg text-neutral-200 max-w-2xl mx-auto font-light mt-4 animate-reveal"
+      >
+        {docData.subtitle}
+      </p>
+    </div>
+    <div class="post-content" set:html={docData.content} />
+  </div>
+</PageLayout>

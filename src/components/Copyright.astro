@@ -1,0 +1,13 @@
+---
+// Copyright.astro
+const year = new Date().getFullYear();
+interface Props {
+  owner?: string;
+  rights?: string;
+}
+const { owner = "Dominik Rnjak", rights = "All rights reserved" } = Astro.props;
+---
+
+<div class="mt-12 pt-6 text-center copyright">
+  <p>© {year} {owner}. {rights}</p>
+</div>

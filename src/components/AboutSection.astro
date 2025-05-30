@@ -1,0 +1,116 @@
+---
+import SkillItem from './SkillItem.astro';
+import Copyright from './Copyright.astro';
+
+// types.ts
+export interface SocialLinkType {
+  platform: string;
+  url: string;
+  icon: string;
+}
+export interface SkillType {
+  name: string;
+  progress: number;
+  delay: number;
+}
+export interface ProfileType {
+  name: string;
+  image: string;
+  alt: string;
+  description: string;
+  resume: string;
+  socialLinks: SocialLinkType[];
+  skills: SkillType[];
+}
+export interface ButtonTextsType {
+  download: string;
+  contact: string;
+}
+
+// Data section
+const profile: ProfileType = { 
+  name: "Dominik Rnjak",
+  image: "/img/profile.png",
+  alt: "Profile Picture",
+  description: "I'm a freelance artist from Croatia. Correct anatomy, dramatic lightning and romanticism are the pillars of my work, which tries to capture a feeling of silent melancholy and beauty, while also being a bit dark and mysterious. However, I also love to experiment with different techniques and themes to be able to reach the limits of creativity. Overall, if you can imagine it, I can create it.",
+  resume: "data/resume.pdf",
+  socialLinks: [
+    { platform: "instagram", url: "https://www.instagram.com/katriga.arts2/", icon: "fab fa-instagram" }
+    // { platform: "linkedin", url: "https://linkedin.com", icon: "fab fa-linkedin" },
+    // { platform: "twitter", url: "https://twitter.com", icon: "fab fa-twitter" }
+  ],
+  skills: [
+    { name: "Digital drawing", progress: 90, delay: 100 },
+    { name: "Portrait", progress: 85, delay: 200 },
+    { name: "Detailed rendering", progress: 80, delay: 300 },
+    { name: "Traditional painting", progress: 75, delay: 400 }
+  ]
+};
+
+const buttonTexts: ButtonTextsType = {
+  download: "Download Resume",
+  contact: "Contact Me"
+};
+---
+
+<div id="aboutSection" class="section h-screen overflow-y-auto py-24 flex flex-col scrollable lg:px-16 xl:px-24">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 gap-12">
+      <div class="flex flex-col md:flex-row gap-8 items-center lg:items-start">
+        <img id="profile-image"
+          src={profile.image}
+          alt={profile.alt}
+          class="w-48 h-48 rounded-full object-cover mb-6 shadow-lg border-4 border-white/20 animate-reveal"
+        />
+        <div class="flex flex-col">
+          <h2 class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal mb-3">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
+              {profile.name}
+            </span>
+          </h2>
+          <p class="text-neutral-200 text-base mb-6 text-left">
+            {profile.description}
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
+            <!--<a
+              href={profile.resume}
+              download
+              class="bg-white hover:bg-white text-black px-6 py-3 rounded-md text-lg font-medium transition-all flex items-center justify-center"
+            >
+              <i class="fas fa-download mr-2"></i> {buttonTexts.download}
+            </a>  -->
+            <button
+              @click="goToSlide(5)"
+              class="relative bg-transparent border-2 border-white text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-white hover:text-black transition-all duration-300 overflow-hidden group"
+            >
+              <span class="relative z-10">{buttonTexts.contact}</span>
+              <span class="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>
+            </button>
+          </div>
+          <div class="flex space-x-4">
+            {profile.socialLinks.map((link) => (
+              <a
+                href={link.url}
+                target="_blank"
+                class="text-neutral-200 hover:text-white transition-colors"
+              >
+                <i class={`${link.icon} text-2xl`}></i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <h3 class="text-2xl font-semibold text-white mb-6 text-center lg:text-left">
+          My Skills
+        </h3>
+        <div class="space-y-6">
+          {profile.skills.map((skill) => (
+            <SkillItem name={skill.name} progress={skill.progress} delay={skill.delay} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+  <Copyright />
+</div>

@@ -1,0 +1,47 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  image: string;
+  rating: number;
+}
+
+const { quote, name, role, image, rating } = Astro.props;
+---
+
+<div
+  class="testimonial-item bg-neutral-800/70 rounded-2xl p-6 shadow-xl transition-all duration-500 hover:shadow-yellow-300/30 group animate-reveal hover:-translate-y-4"
+>
+  <div class="relative">
+    <div
+      class="bg-neutral-900/90 rounded-xl p-5 mb-4 relative z-10 border-l-4 border-yellow-300"
+    >
+      <p class="text-neutral-200 text-base italic font-light">{quote}</p>
+      <div
+        class="absolute -bottom-3 start-5 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-neutral-900/90"
+      ></div>
+    </div>
+    <div class="flex items-center mt-6">
+      <img
+        src={image}
+        alt={name}
+        class="w-14 h-14 rounded-full object-cover mr-3 border-2 border-yellow-300/30 group-hover:border-yellow-300 transition-all"
+        loading="lazy"
+      />
+      <div>
+        <h4 class="text-lg font-semibold text-white">{name}</h4>
+        <span class="text-neutral-400 text-sm">{role}</span>
+      </div>
+    </div>
+    <div class="flex mt-4">
+      {Array.from({ length: 5 }, (_, i) => (
+        <i
+          class={`fas fa-star text-yellow-300 text-sm ${
+            i < rating ? '' : 'fa-star-half-alt'
+          }`}
+        ></i>
+      ))}
+    </div>
+  </div>
+</div>

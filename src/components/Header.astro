@@ -1,0 +1,34 @@
+---
+---
+
+<header>
+  <!-- Mobile Hamburger Menu -->
+  <div
+    class="fixed md:hidden flex items-center gap-3 top-4 start-4 z-30"
+    @click="sidebarOpen = !sidebarOpen"
+  >
+    <div
+      class="size-10 flex items-center justify-center bg-neutral-800/50 rounded-md shadow-lg hover:bg-white hover:text-black transition-all duration-300"
+    >
+      <i class="fas" :class="sidebarOpen ? 'fa-times' : 'fa-bars'"></i>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="fixed flex items-center gap-3 top-4 end-4 z-30">
+    <button
+      class="size-10 flex items-center justify-center bg-neutral-800/50 rounded-md shadow-lg hover:bg-white hover:text-black transition-all duration-300"
+      @click="goToSlide(activeSlide - 1)"
+      :disabled="activeSlide === 0"
+    >
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <button
+      class="size-10 flex items-center justify-center bg-neutral-800/50 rounded-md shadow-lg hover:bg-white hover:text-black transition-all duration-300"
+      @click="goToSlide(activeSlide + 1)"
+      :disabled="!splide || activeSlide === splide.length - 1"
+    >
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
+</header>

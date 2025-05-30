@@ -1,0 +1,325 @@
+@import "tailwindcss";
+@theme {
+  --font-sans: "Raleway", sans-serif;
+  --color-bg: #0e1117;
+  --color-body: #f4f4f4;
+  --color-accent: white;
+  --color-hoveraccent: white;
+  --color-bgsidebar: rgba(14, 14, 14, 0.8);
+}
+
+@font-face {
+  font-family: "Cinzel";
+  src: url("/fonts/Cinzel-VariableFont_wght.ttf") format("truetype");
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-neutral-200, currentColor);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: theme(--color-gray-400);
+  }
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+}
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* theme */
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-body);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Cinzel", sans-serif;
+  font-weight: 700;
+}
+
+#frame {
+  border-image-source: url("/img/border.svg");
+  border-image-slice: 25;
+  border-image-width: 21.3px;
+  border-image-repeat: stretch;
+  position: absolute;
+  width: calc(100% - 80px);
+  height: calc(100% - 80px);
+  top: 40px;
+  left: 40px;
+}
+.corner {
+  background-image: url("/img/corner_plain.svg");
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+#corner_top-left {
+  top: 0;
+  left: 0;
+  transform: rotate(270deg);
+}
+#corner_top-right {
+  top: 0;
+  right: 0;
+}
+#corner_bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(180deg);
+}
+#corner_bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+.sidebar {
+  background-color: var(--color-bgsidebar);
+  height: 100vh;
+  width: 80px;
+  transition: width 0.3s;
+  overflow: hidden;
+  z-index: 100;
+}
+.menu-item {
+  transition: all 0.3s;
+}
+.text-color-accent,
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-accent);
+}
+.btn-primary {
+  background-color: var(--color-accent);
+  transition: all 0.3s;
+}
+.btn-primary:hover {
+  background-color: var(--color-hoveraccent);
+}
+.mini-gallery {
+  max-height: 70vh;
+}
+.mini-gallery-item {
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+.mini-gallery-item:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+.content-overlay {
+  background: rgba(14, 17, 23, 0.6);
+  background: linear-gradient(
+    90deg,
+    rgba(14, 17, 23, 0.8) 0%,
+    rgba(14, 17, 23, 0.6) 50%,
+    rgba(14, 17, 23, 0.2) 100%
+  );
+}
+#hero-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 40%
+  );
+}
+#sidebar-container {
+  height: 100%;
+}
+#sidebar {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#aboutSection {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+}
+#profile-image {
+  border-color: white;
+}
+@media screen and (max-width: 767px) {
+  #frame {
+    z-index: 9;
+  }
+  #hero-gradient {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 10;
+  }
+}
+/* Splide custom styling */
+.splide__pagination {
+  position: fixed;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(48%);
+  flex-direction: column;
+  z-index: 10;
+}
+.splide__pagination__page {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin: 10px 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s;
+}
+.splide__pagination__page.is-active {
+  background-color: var(--color-accent);
+  transform: scale(1.2);
+}
+/* Navigation arrows */
+.splide__arrow {
+  position: fixed;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s;
+  opacity: 1;
+}
+.splide__arrow svg {
+  fill: #ffffff;
+}
+.splide__arrow:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.splide__arrow--prev {
+  left: 100px;
+}
+.splide__arrow--next {
+  right: 20px;
+}
+.scrollable {
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #888 transparent; /* Firefox */
+}
+/* Chrome, Edge, dan Safari */
+.scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Mobile menu styling */
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .splide__pagination {
+    display: none;
+  }
+}
+
+.post-content {
+  @apply text-neutral-200 leading-7;
+}
+/* Headings */
+.post-content h1 {
+  @apply text-4xl font-semibold text-white leading-[1.2] mt-8 mb-4;
+}
+.post-content h2 {
+  @apply text-2xl md:text-3xl font-semibold text-white leading-[1.2] mt-8 mb-4;
+}
+.post-content h3 {
+  @apply text-xl md:text-2xl font-semibold text-white leading-[1.2] mt-8 mb-3;
+}
+.post-content h4 {
+  @apply text-lg md:text-xl font-semibold text-white leading-[1.2] mt-8 mb-2;
+}
+.post-content h5 {
+  @apply text-lg font-semibold text-white leading-[1.2] mt-8 mb-2;
+}
+.post-content h6 {
+  @apply text-base font-semibold text-white leading-[1.2] mt-8 mb-2;
+}
+
+/* Paragraphs */
+.post-content p {
+  @apply text-lg text-neutral-200 mb-4;
+}
+/* Lists */
+.post-content ul {
+  @apply list-disc pl-6 mb-6;
+}
+.post-content li {
+  @apply text-lg text-neutral-200 mb-2;
+}
+/* Links */
+.post-content a {
+  color: var(--color-accent);
+  @apply no-underline;
+}
+.post-content a:hover {
+  color: var(--color-accent);
+}
+/* Code and Pre */
+.post-content code {
+  color: var(--color-accent);
+  @apply bg-neutral-700 px-2 py-1 rounded text-sm;
+}
+.post-content pre {
+  @apply bg-neutral-800 text-neutral-200 p-4 rounded overflow-x-auto mb-6;
+}
+.post-content pre code {
+  @apply bg-transparent p-0 text-current;
+}
+.post-content h3 + p,
+.post-content h3 + p + ul {
+  @apply mt-4;
+}
+.post-content strong {
+  @apply text-white font-bold;
+}
+.post-content blockquote {
+  @apply bg-neutral-700 text-neutral-200 p-4 border-l-4 border-yellow-300 mt-6 italic;
+}
+.post-content blockquote p {
+  @apply m-0;
+}

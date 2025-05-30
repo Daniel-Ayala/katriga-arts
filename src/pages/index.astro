@@ -1,0 +1,30 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import GallerySection from '../components/GallerySection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+---
+
+<MainLayout>
+  <div class="splide__slide">
+    <HeroSection />
+  </div>
+  <div class="splide__slide">
+    <GallerySection />
+  </div>
+  <div class="splide__slide">
+    <AboutSection />
+  </div>
+  <div class="splide__slide">
+    <ServicesSection />
+  </div>
+  <div class="splide__slide">
+    <TestimonialsSection />
+  </div>
+  <div class="splide__slide">
+    <ContactSection />
+  </div>
+</MainLayout>

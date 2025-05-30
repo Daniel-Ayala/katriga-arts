@@ -1,0 +1,98 @@
+---
+import TestimonialItem from './TestimonialItem.astro';
+import Copyright from './Copyright.astro';
+
+// Types
+interface TestimonialType {
+  quote: string;
+  name: string;
+  role: string;
+  image: string;
+  rating: number;
+}
+interface BrandType {
+  src: string;
+  alt: string;
+}
+
+// Data
+const testimonials: TestimonialType[] = [
+  {
+    quote: 'The photos from our wedding were absolutely stunning! Every moment was captured with such artistry.',
+    name: 'Sarah Johnson',
+    role: 'Wedding Client',
+    image: '/img/female1.jpg',
+    rating: 5,
+  },
+  {
+    quote: 'Professional, creative, and truly passionate about photography. I couldn’t have asked for a better experience.',
+    name: 'Michael Brown',
+    role: 'Corporate Client',
+    image: '/img/male1.jpg',
+    rating: 5,
+  },
+  {
+    quote: 'The portrait session was so much fun and the results were incredible. Highly recommended!',
+    name: 'Emily Davis',
+    role: 'Portrait Client',
+    image: '/img/female2.jpg',
+    rating: 4,
+  }
+];
+const brands: BrandType[] = [
+  { src: '/img/logo1.png', alt: 'Brand 1' },
+  { src: '/img/logo2.png', alt: 'Brand 2' },
+  { src: '/img/logo3.png', alt: 'Brand 3' },
+  { src: '/img/logo4.png', alt: 'Brand 4' },
+  { src: '/img/logo5.png', alt: 'Brand 5' },
+  { src: '/img/logo6.png', alt: 'Brand 6' },
+];
+---
+
+<div
+  class="section h-screen overflow-y-auto py-24 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24"
+>
+  <div class="relative text-center mb-12">
+    <h2
+      class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal"
+    >
+      <span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-300"
+      >
+        Voices of Our Clients
+      </span>
+    </h2>
+  </div>
+
+  <div class="flex-1 flex items-center justify-center">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+        {testimonials.map((testimonial) => (
+          <TestimonialItem {...testimonial} />
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-12">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-xl font-semibold text-white mb-8 animate-reveal">
+        Trusted By Leading Brands
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 items-center">
+        {brands.map((brand) => (
+          <div class="brand-item animate-reveal">
+            <img
+              src={brand.src}
+              alt={brand.alt}
+              class="h-12 mx-auto filter grayscale hover:grayscale-0 hover:scale-110 transition-all duration-300"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <Copyright />
+</div>

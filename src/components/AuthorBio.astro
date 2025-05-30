@@ -1,0 +1,107 @@
+---
+// src/components/AuthorBio.astro
+interface Props {
+  author: {
+    name: string;
+    image: string;
+    bio: string;
+    social: {
+      instagram?: string;
+      twitter?: string;
+      linkedin?: string;
+      website?: string;
+      youtube?: string;
+    };
+  };
+}
+
+const { author } = Astro.props;
+---
+
+<div class="author-bio bg-neutral-800/50 rounded-xl p-6 border border-neutral-700/50">
+  <div class="flex flex-col sm:flex-row gap-6 items-start">
+    <img
+      src={author.image}
+      alt={`Photo of ${author.name}`}
+      width={80}
+      height={80}
+      class="rounded-full w-20 h-20 object-cover border-2 border-white/30"
+      loading="lazy"
+    />
+    
+    <div class="flex-1">
+      <h3 class="text-xl font-bold text-white mb-2">{author.name}</h3>
+      <p class="text-neutral-300 mb-4">{author.bio}</p>
+      
+      <div class="social-links flex gap-4">
+        {author.social.website && (
+          <a
+            href={author.social.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-400 hover:text-white transition-colors"
+            aria-label={`Visit ${author.name}'s website`}
+          >
+            <i class="fas fa-globe text-xl"></i>
+          </a>
+        )}
+        {author.social.instagram && (
+          <a
+            href={author.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-400 hover:text-white transition-colors"
+            aria-label={`Follow ${author.name} on Instagram`}
+          >
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+        )}
+        {author.social.twitter && (
+          <a
+            href={author.social.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-400 hover:text-white transition-colors"
+            aria-label={`Follow ${author.name} on Twitter`}
+          >
+            <i class="fab fa-twitter text-xl"></i>
+          </a>
+        )}
+        {author.social.linkedin && (
+          <a
+            href={author.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-400 hover:text-white transition-colors"
+            aria-label={`Connect with ${author.name} on LinkedIn`}
+          >
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+        )}
+        {author.social.youtube && (
+          <a
+            href={author.social.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-400 hover:text-white transition-colors"
+            aria-label={`Follow ${author.name} on YouTube`}
+          >
+            <i class="fab fa-youtube text-xl"></i>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .author-bio {
+    backdrop-filter: blur(8px);
+  }
+  .social-links a {
+    transition: transform 0.2s ease;
+  }
+  .social-links a:hover {
+    transform: translateY(-2px);
+  }
+</style>
