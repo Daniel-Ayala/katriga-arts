@@ -41,6 +41,10 @@ body {
   margin: 0;
   padding: 0;
 }
+#shader-canvas {
+  background: black;
+}
+
 h1,
 h2,
 h3,
