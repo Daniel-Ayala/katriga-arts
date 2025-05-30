@@ -2,7 +2,7 @@
 @theme {
   --font-sans: "Raleway", sans-serif;
   --color-bg: #0e1117;
-  --color-body: #f4f4f4;
+  --color-body: black;
   --color-accent: white;
   --color-hoveraccent: white;
   --color-bgsidebar: rgba(14, 14, 14, 0.8);
