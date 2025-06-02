@@ -466,6 +466,22 @@ items.forEach((item, index) => {
   item.id = `photo${index + 1}`; // Start IDs from 1
 });
 
+export const GET: APIRoute = async ({ request }) => {
+  return new Response(
+    JSON.stringify({
+      items: items,
+      total: items.length,
+      page: 1,
+      pageSize: items.length, // Return all items by default
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     // Parse the JSON body

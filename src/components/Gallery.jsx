@@ -38,6 +38,7 @@ const Gallery = ({
   buttonText = "Load More",
   initialItems = [],
   pageSize = 5,
+  apiUrl
 }) => {
   // State management
   const [items, setItems] = useState(initialItems);
@@ -122,7 +123,7 @@ const Gallery = ({
         page: nextPage,
       });
       // Make API request
-      const response = await fetch(`/api/gallery`, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +137,7 @@ const Gallery = ({
         setButtonState("No more items");
         return;
       }
-
+      console.log("Loaded items:", data.items);
       // Add new items to the gallery
       setItems((prevItems) => [...prevItems, ...data.items]);
 

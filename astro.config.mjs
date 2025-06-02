@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import cloudflare from "@astrojs/cloudflare";
+import vercel from "@astrojs/vercel";
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -10,8 +11,12 @@ export default defineConfig({
   },
 
   integrations: [react()],
-  adapter: cloudflare(),
+  adapter: vercel(),
   security: {
-	checkOrigin: false,
+      checkOrigin: false,
   },
+  trailingSlash: "never",
+  build: {
+    format: "directory",
+  }
 });
