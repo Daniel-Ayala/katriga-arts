@@ -207,10 +207,11 @@ h4 {
   padding-right: 20px;
   transition: all 0.5s;
   overflow: visible;
-  z-index: 100;
+  z-index: -100;
   border-radius: 0 0 8px 0;
 }
 .sidebar.open {
+  z-index: 100;
   opacity: 1;
 }
 #sidebar {
