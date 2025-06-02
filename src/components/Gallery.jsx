@@ -60,6 +60,7 @@ const Gallery = ({
           percentPosition: true,
           transitionDuration: 0,
         });
+        animateItems();
       });
     }
 
@@ -82,11 +83,6 @@ const Gallery = ({
       closeEffect: "fade",
     });
 
-    // wait 100ms before animating to ensure position is set properly
-    setTimeout(() => {
-      animateItems();
-    }, 1000);
-
     // Clean up when component unmounts or when items change
     return () => {
       if (lightbox && typeof lightbox.destroy === "function") {
@@ -103,6 +99,8 @@ const Gallery = ({
       imagesLoaded(masonryRef.current, () => {
         masonryInstanceRef.current.reloadItems();
         masonryInstanceRef.current.layout();
+
+        animateItems();
       });
     }
   }, [items, initialItems.length]);
