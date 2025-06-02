@@ -69,7 +69,6 @@ document.addEventListener('alpine:init', () => {
         }
         this.splide.go(index);
         this.activeSlide = index;
-        this.sidebarOpen = false;
         console.log('Navigated to slide:', index, 'activeSlide set to:', this.activeSlide);
       },
     }));

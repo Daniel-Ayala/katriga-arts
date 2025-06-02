@@ -15,7 +15,7 @@ const menuItems: MenuItem[] = [
 ];
 ---
 
-<nav id="sidebar">
+<nav id="sidebar" @click="sidebarOpen = !sidebarOpen">
   <ul class="flex flex-row gap-2">
     {menuItems.map((item, index) => (
       <li

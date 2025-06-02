@@ -105,7 +105,7 @@ h4 {
     top: -15px;
     left: -15px;
     border-radius: inherit;
-    transition: all 0.3s; 
+    transition: all 0.3s;
     z-index: -1;
     border: solid 2px transparent;
   }
@@ -148,17 +148,35 @@ h4 {
 }
 .text-color-accent,
 .menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 10px black;
   border-color: var(--color-accent);
   color: var(--color-accent);
 
   &::before {
     border-color: var(--color-accent);
-    background-color: black;
+    background: none;
+    /* Pure greyscale shader effect */
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(200, 200, 200, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(150, 150, 150, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(100, 100, 100, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 60% 70%, rgba(180, 180, 180, 0.15) 0%, transparent 40%),
+      linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%);
+    background-size: 200% 200%, 300% 300%, 250% 250%, 180% 180%, 100% 100%;
+    animation: shaderMove 8s ease-in-out infinite;
   }
 
-  .menu-decoration{
+  .menu-decoration {
     opacity: 1;
+  }
+}
+@keyframes shaderMove {
+  0%, 100% {
+    background-position: 0% 50%, 100% 50%, 50% 100%, 20% 80%, 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 50% 0%, 80% 20%, 0% 0%;
   }
 }
 .btn-primary {
@@ -224,6 +242,7 @@ h4 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 30px;
   }
 }
 #aboutSection {
