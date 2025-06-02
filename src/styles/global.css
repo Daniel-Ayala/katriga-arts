@@ -356,6 +356,7 @@ h4 {
 }
 
 #hamburger-menu {
+  cursor: pointer;
   transform: scale(1.5);
   z-index: 1000;
 }
@@ -363,6 +364,33 @@ h4 {
 .text-highlight {
   text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7),
     0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 30px rgba(255, 255, 255, 0.3);
+}
+.service-item{
+  overflow: hidden;
+}
+.examples {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  height: 200px;
+  transform: skewX(-10deg) scale(1.1);
+}
+.example-container {
+  width: calc(100%/3);
+  overflow: hidden;
+  transition: all 0.3s;
+
+  &:hover {
+    width: 100%;
+    z-index: 10;
+  }
+}
+.example {
+  height: 100%;
+  width: 100%;
+  transform: skewX(10deg) scale(1.35);
+  object-fit: cover;
 }
 
 /* Mobile menu styling */
