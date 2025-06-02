@@ -16,15 +16,16 @@ const menuItems: MenuItem[] = [
 ---
 
 <nav id="sidebar">
-  <ul>
+  <ul class="flex flex-row gap-2">
     {menuItems.map((item, index) => (
       <li
-        class="menu-item py-4 px-6 flex flex-col items-center gap-1 cursor-pointer"
-        x-bind:class={`{ 'text-color-accent': activeSlide === ${item.slide} }`}
+        class="menu-item py-2 px-4 flex flex-row items-center gap-1 cursor-pointer"
+        x-bind:class={`{ 'text-color-accent text-highlight': activeSlide === ${item.slide} }`}
         x-on:click={`goToSlide(${item.slide})`}
       >
-        <i class={`fas ${item.icon} text-xl`}></i>
-        <span class="menu-text text-xs">{item.name}</span>
+        <div class="menu-decoration"></div>
+        <!-- <i class={`fas ${item.icon} text-lg`}></i> -->
+        <span class="menu-text text-md">{item.name}</span>
       </li>
     ))}
   </ul>

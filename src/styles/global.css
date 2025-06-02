@@ -5,7 +5,7 @@
   --color-body: #f4f4f4;
   --color-accent: white;
   --color-hoveraccent: white;
-  --color-bgsidebar: rgba(14, 14, 14, 0.8);
+  --color-bgsidebar: rgba(14, 14, 14, 0);
 }
 
 @font-face {
@@ -87,21 +87,79 @@ h4 {
   right: 0;
   transform: rotate(90deg);
 }
-.sidebar {
-  background-color: var(--color-bgsidebar);
-  height: 100vh;
-  width: 80px;
-  transition: width 0.3s;
-  overflow: hidden;
-  z-index: 100;
-}
 .menu-item {
+  transition: all 0.3s;
+  border-radius: 999px;
+  height: 80px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  border: solid 4px transparent;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: calc(100% + 30px);
+    height: calc(100% + 30px);
+    top: -15px;
+    left: -15px;
+    border-radius: inherit;
+    transition: all 0.3s; 
+    z-index: -1;
+    border: solid 2px transparent;
+  }
+}
+.menu-decoration {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  justify-content: space-between;
+
+  &::before {
+    content: "";
+    transform: translateX(-7px);
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    background-color: white;
+  }
+  &::after {
+    content: "";
+    transform: translateX(7px);
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    background-color: white;
+  }
+}
+.menu-text {
+  font-family: "Cinzel", sans-serif;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-align: center;
+  font-size: xxx-large;
   transition: all 0.3s;
 }
 .text-color-accent,
 .menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--color-accent);
   color: var(--color-accent);
+
+  &::before {
+    border-color: var(--color-accent);
+    background-color: black;
+  }
+
+  .menu-decoration{
+    opacity: 1;
+  }
 }
 .btn-primary {
   background-color: var(--color-accent);
@@ -140,16 +198,37 @@ h4 {
 #sidebar-container {
   height: 100%;
 }
+.sidebar {
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background-color: rgba(14, 14, 14, 0.9);
+  padding-right: 20px;
+  transition: all 0.5s;
+  overflow: visible;
+  z-index: 100;
+  border-radius: 0 0 8px 0;
+}
+.sidebar.open {
+  opacity: 1;
+}
 #sidebar {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ul {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 #aboutSection {
   background: linear-gradient(
-    to bottom, 
-    rgba(255, 255, 255, 0.05) 0%, 
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0%,
     rgba(255, 255, 255, 0.15) 100%
   );
   backdrop-filter: blur(5px);
@@ -239,17 +318,18 @@ h4 {
   background-color: #555;
 }
 
+#hamburger-menu {
+  transform: scale(1.5);
+  z-index: 1000;
+}
+
+.text-highlight {
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7),
+    0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 30px rgba(255, 255, 255, 0.3);
+}
+
 /* Mobile menu styling */
 @media (max-width: 767px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
   .hamburger {
     position: fixed;
     top: 20px;
