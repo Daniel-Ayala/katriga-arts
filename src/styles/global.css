@@ -379,18 +379,19 @@ h4 {
   height:200px;
 }
 .example-container {
-  width: calc(100%/3);
+  width: 100%;
   overflow: hidden;
   transition: all 0.3s;
 
   &:hover {
-    width: 100%;
+    width: 600%;
     z-index: 10;
   }
 }
 .example {
   height: 100%;
   width: 100%;
+  overflow: visible;
   transform: skewX(10deg) scale(1.35);
   object-fit: cover;
 }

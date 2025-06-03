@@ -29,14 +29,26 @@ const { icon, title, description, price, duration, img1, img2, img3 } =
     </div>
   </div>
   <div class="examples">
-    <div class="example-container example-container-1">
-      <img class="example example1" src={img1} alt="Example 1" />
-    </div>
-    <div class="example-container example-container-2">
-      <img class="example example2" src={img2} alt="Example 2" />
-    </div>
-    <div class="example-container example-container-3">
-      <img class="example example3" src={img3} alt="Example 3" />
-    </div>
+    {
+      img1 && (
+        <div class="example-container example-container-1">
+          <img class="example example1" src={img1} alt="Example 1" />
+        </div>
+      )
+    }
+    {
+      img2 && (
+        <div class="example-container example-container-2">
+          <img class="example example2" src={img2} alt="Example 2" />
+        </div>
+      )
+    }
+    {
+      img3 && (
+        <div class="example-container example-container-3">
+          <img class="example example3" src={img3} alt="Example 3" />
+        </div>
+      )
+    }
   </div>
 </div>

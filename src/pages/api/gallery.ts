@@ -60,6 +60,20 @@ export const items = [
     "category": ""
   },
   {
+    "src": "/img/gallery/compressed/portrait2.webp",
+    "alt": "portrait2",
+    "title": "",
+    "description": "",
+    "category": ""
+  },
+  {
+    "src": "/img/gallery/compressed/portrait3.webp",
+    "alt": "portrait3",
+    "title": "",
+    "description": "",
+    "category": ""
+  },
+  {
     "src": "/img/gallery/compressed/death.webp",
     "alt": "death",
     "title": "",
@@ -69,6 +83,13 @@ export const items = [
   {
     "src": "/img/gallery/compressed/war.webp",
     "alt": "war",
+    "title": "",
+    "description": "",
+    "category": ""
+  },
+  {
+    "src": "/img/gallery/compressed/desert.webp",
+    "alt": "desert",
     "title": "",
     "description": "",
     "category": ""

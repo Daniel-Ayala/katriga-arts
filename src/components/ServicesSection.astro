@@ -1,6 +1,6 @@
 ---
-import ServiceItem from './ServiceItem.astro';
-import Copyright from './Copyright.astro';
+import ServiceItem from "./ServiceItem.astro";
+import Copyright from "./Copyright.astro";
 
 // Interface definition
 interface Service {
@@ -18,75 +18,93 @@ interface HeadingService {
 // Data section
 const services: Service[] = [
   {
-    icon: 'fa-portrait',
-    title: 'Sketches',
-    description: 'Quick sketches with optional simple color.',
-    price: '~$40-60',
-    duration: '1-hour session',
-    img1: '/img/gallery/compressed/angel.webp',
-    img2: '/img/gallery/compressed/dragon.webp',
-    img3: '/img/gallery/compressed/enemy4.webp',
+    icon: "",
+    title: "Sketches",
+    description: "Loose black-and-white or lightly colored sketches. Ideal for quick ideas or early concept exploration.",
+    price: "~$30-60",
+    duration: "",
+    img1: "/img/gallery/compressed/angel.webp",
+    img2: "/img/gallery/compressed/dragon.webp",
+    img3: "/img/gallery/compressed/enemy4.webp",
   },
   {
-    icon: 'fa-camera-retro',
-    title: 'Event Photography',
-    description: 'Capture every moment of your special events, from weddings to corporate gatherings.',
-    price: '$500',
-    duration: '4-hour coverage'
+    icon: "",
+    title: "Character Design",
+    description:
+      "Custom characters with optional front/back views, expressions, or outfit variations. Suitable for games, stories, or worldbuilding.",
+    price: "~$150-400",
+    duration: "",
   },
   {
-    icon: 'fa-mountain',
-    title: 'Landscape Photography',
-    description: 'Breathtaking nature and cityscape photography for your home or office decor.',
-    price: '$350',
-    duration: 'Half-day session'
+    icon: "",
+    title: "Full Illustration",
+    description:
+      "Highly detailed, fully rendered artwork. Includes characters, backgrounds, and lighting — perfect for covers or key scenes.",
+    price: "~$200-1000",
+    duration: "",
   },
   {
-    icon: 'fa-ring',
-    title: 'Wedding Photography',
-    description: 'Comprehensive wedding coverage to preserve your special day forever.',
-    price: '$1,200',
-    duration: 'Full-day coverage'
+    icon: "",
+    title: "Portraits",
+    description:
+      "Bust or full-body painted portraits in a realistic or stylized aesthetic. Personal, gift, or fantasy-themed options available (and pets, too).",
+    price: "~$80-250",
+    duration: "Full-day coverage",
   },
   {
-    icon: 'fa-utensils',
-    title: 'Food Photography',
-    description: 'Mouth-watering food photography for restaurants and culinary businesses.',
-    price: '$300',
-    duration: '2-hour session'
+    icon: "",
+    title: "Comics & Sequential Art",
+    description:
+      "Comic pages or narrative sequences. Includes layout, paneling, and optional color. For short stories or visual storytelling.",
+    price: "~$80-200 per page",
+    duration: "",
   },
   {
-    icon: 'fa-tshirt',
-    title: 'Fashion Photography',
-    description: 'High-end fashion photography for brands, models, and designers.',
-    price: '$450',
-    duration: '3-hour session'
-  }
+    icon: "",
+    title: "Advanced lineart & hatching",
+    description:
+      "Black and white drawings with high detail and complexity. Great for book illustrations, posters, or intricate designs.",
+    price: "~$150-600",
+    duration: "",
+  },
 ];
 
 const sectionData: HeadingService = {
-  title: "Our Services",
-  description: "Discover our range of professional photography services tailored to capture your unique moments."
+  title: "My Services",
+  description:
+    "Discover my range of professional art services. All services include commercial rights and high-resolution files.",
 };
 ---
 
-<div class="section h-screen overflow-y-auto py-24 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24">
+<div
+  class="section h-screen overflow-y-auto py-24 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24"
+>
   <div class="container mx-auto px-4">
     <div class="text-center mb-12">
-      <h2 class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal mb-3">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
+      <h2
+        class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal mb-3"
+      >
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white"
+        >
           {sectionData.title}
         </span>
       </h2>
-      <p class="text-lg text-neutral-200 max-w-2xl mx-auto font-light">
+      <p class="text-lg text-neutral-200 max-w-2xl mx-auto font-light mb-6">
         {sectionData.description}
       </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service) => <ServiceItem {...service} />)}
+      </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {services.map((service) => (
-        <ServiceItem {...service} />
-      ))}
+
+    <div class="revisions-policy text-neutral-400 text-sm mt-4 text-center">
+      <h1 class="text-lg font-semibold text-white">Revisions Policy</h1>
+      <p>All services include 2 free revisions during the sketch phase.</p>
+      <p class="mt-2">
+        Additional mid-major revisions are $10-50 each, depending on complexity.
+      </p>
     </div>
+    <Copyright />
   </div>
-  <Copyright />
 </div>
