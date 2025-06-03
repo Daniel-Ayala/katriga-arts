@@ -108,7 +108,13 @@ export const items = [
     "description": "",
     "category": ""
   },
-  
+  {
+    "src": "/img/gallery/compressed/naval.webp",
+    "alt": "naval",
+    "title": "",
+    "description": "",
+    "category": ""
+  },
   {
     "src": "/img/gallery/compressed/nativity scene.webp",
     "alt": "nativity scene",
