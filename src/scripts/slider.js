@@ -1,3 +1,5 @@
+import { onScroll, animate, stagger } from "animejs";
+
 document.addEventListener('alpine:init', () => {
     if (typeof window.Splide === 'undefined') {
       console.error('Splide is not defined. Ensure vendors.js is loaded.');
@@ -70,6 +72,17 @@ document.addEventListener('alpine:init', () => {
         this.splide.go(index);
         this.activeSlide = index;
         console.log('Navigated to slide:', index, 'activeSlide set to:', this.activeSlide);
+
+        // Trigger animation of the categories in the gallery slide
+        if (index === 1) {
+          animate(".category", {
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 500,
+            delay: stagger(100),
+            ease: "in"
+          });
+        }
       },
     }));
   });

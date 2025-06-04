@@ -4,494 +4,710 @@ import type { APIRoute } from "astro";
 
 export const items = [
   {
-    "src": "/img/gallery/compressed/jesuscross.webp",
-    "alt": "jesuscross",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesuscross.webp",
+    alt: "jesuscross",
+    title: "",
+    description: "",
+    category: ["religion", "illustration"],
   },
   {
-    "src": "/img/gallery/compressed/angel.webp",
-    "alt": "angel",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/angel.webp",
+    alt: "angel",
+    title: "",
+    description: "",
+    category: ["religion", "illustration", "character"],
   },
   {
-    "src": "/img/gallery/compressed/lying.webp",
-    "alt": "lying",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/gabriel.webp",
+    alt: "gabriel",
+    title: "",
+    description: "",
+    category: ["religion", "illustration", "character"],
   },
   {
-    "src": "/img/gallery/compressed/angel death.webp",
-    "alt": "angel death",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/angel death.webp",
+    alt: "angel death",
+    title: "",
+    description: "",
+    category: ["illustration"],
   },
   {
-    "src": "/img/gallery/compressed/Space-Marine-2.webp",
-    "alt": "Space-Marine-2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/Space-Marine-2.webp",
+    alt: "Space-Marine-2",
+    title: "",
+    description: "",
+    category: ["illustration", "sci-fi", "character"],
   },
   {
-    "src": "/img/gallery/compressed/fairy.webp",
-    "alt": "fairy",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/fairy.webp",
+    alt: "fairy",
+    title: "",
+    description: "",
+    category: ["character"],
   },
   {
-    "src": "/img/gallery/compressed/angel2.webp",
-    "alt": "angel2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/lying.webp",
+    alt: "lying",
+    title: "",
+    description: "",
+    category: ["illustration"],
   },
   {
-    "src": "/img/gallery/compressed/portrait.webp",
-    "alt": "portrait",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/angel2.webp",
+    alt: "angel2",
+    title: "",
+    description: "",
+    category: ["character", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/portrait2.webp",
-    "alt": "portrait2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/spooky.webp",
+    alt: "spooky",
+    title: "",
+    description: "",
+    category: ["illustration", "character"],
   },
   {
-    "src": "/img/gallery/compressed/portrait3.webp",
-    "alt": "portrait3",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/portrait.webp",
+    alt: "portrait",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/death.webp",
-    "alt": "death",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/portrait2.webp",
+    alt: "portrait2",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/war.webp",
-    "alt": "war",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/portrait3.webp",
+    alt: "portrait3",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/desert.webp",
-    "alt": "desert",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/portrait4.webp",
+    alt: "portrait4",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/mermaid.webp",
-    "alt": "mermaid",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/portrait5.webp",
+    alt: "portrait5",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/jesus2.webp",
-    "alt": "jesus2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/portrait6.webp",
+    alt: "portrait6",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/naval.webp",
-    "alt": "naval",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/redhead.webp",
+    alt: "redhead",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/nativity scene.webp",
-    "alt": "nativity scene",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/fluffy-cat.webp",
+    alt: "fluffy-cat",
+    title: "",
+    description: "",
+    category: ["portrait", "animal"],
   },
   {
-    "src": "/img/gallery/compressed/gundam23.webp",
-    "alt": "gundam23",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/still-life.webp",
+    alt: "redhead",
+    title: "",
+    description: "",
+    category: [],
   },
   {
-    "src": "/img/gallery/compressed/deathSketch.webp",
-    "alt": "deathSketch",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/mermaid.webp",
+    alt: "mermaid",
+    title: "",
+    description: "",
+    category: ["illustration", "character"],
   },
   {
-    "src": "/img/gallery/compressed/dragon.webp",
-    "alt": "dragon",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/death.webp",
+    alt: "death",
+    title: "",
+    description: "",
+    category: ["character"],
   },
   {
-    "src": "/img/gallery/compressed/gundam.webp",
-    "alt": "gundam",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/war.webp",
+    alt: "war",
+    title: "",
+    description: "",
+    category: ["illustration", "character"],
   },
   {
-    "src": "/img/gallery/compressed/knight.webp",
-    "alt": "knight",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/desert.webp",
+    alt: "desert",
+    title: "",
+    description: "",
+    category: ["illustration", "landscape"],
   },
   {
-    "src": "/img/gallery/compressed/jesusSketch.webp",
-    "alt": "jesusSketch",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/dragon head.webp",
+    alt: "dragon head",
+    title: "",
+    description: "",
+    category: ["monster"],
   },
   {
-    "src": "/img/gallery/compressed/otter.webp",
-    "alt": "otter",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesus2.webp",
+    alt: "jesus2",
+    title: "",
+    description: "",
+    category: ["religion", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/wolf.webp",
-    "alt": "wolf",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/woman2.webp",
+    alt: "woman2",
+    title: "",
+    description: "",
+    category: ["character"],
   },
   {
-    "src": "/img/gallery/compressed/potions1.webp",
-    "alt": "potions1",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/woman3.webp",
+    alt: "woman3",
+    title: "",
+    description: "",
+    category: ["character"],
   },
   {
-    "src": "/img/gallery/compressed/potions2.webp",
-    "alt": "potions2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/naval.webp",
+    alt: "naval",
+    title: "",
+    description: "",
+    category: ["illustration", "landscape"],
   },
   {
-    "src": "/img/gallery/compressed/jesuscross2.webp",
-    "alt": "jesuscross2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/boat.webp",
+    alt: "boat",
+    title: "",
+    description: "",
+    category: [],
   },
   {
-    "src": "/img/gallery/compressed/fluffy-cat.webp",
-    "alt": "fluffy-cat",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/nativity scene.webp",
+    alt: "nativity scene",
+    title: "",
+    description: "",
+    category: ["religion", "illustration"],
   },
   {
-    "src": "/img/gallery/compressed/jesus.webp",
-    "alt": "jesus",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/gundam23.webp",
+    alt: "gundam23",
+    title: "",
+    description: "",
+    category: ["sci-fi", "character"],
   },
   {
-    "src": "/img/gallery/compressed/jesus3.webp",
-    "alt": "jesus3",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/deathSketch.webp",
+    alt: "deathSketch",
+    title: "",
+    description: "",
+    category: ["lineart", "character"],
   },
   {
-    "src": "/img/gallery/compressed/jesus4.webp",
-    "alt": "jesus4",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/sketching-sketch.webp",
+    alt: "sketching-sketch",
+    title: "",
+    description: "",
+    category: ["lineart"],
   },
   {
-    "src": "/img/gallery/compressed/woman.webp",
-    "alt": "woman",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/dragon-pen.webp",
+    alt: "dragon",
+    title: "",
+    description: "",
+    category: ["lineart", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/anime3.webp",
-    "alt": "anime3",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/dragon.webp",
+    alt: "dragon",
+    title: "",
+    description: "",
+    category: ["lineart", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/golden man.webp",
-    "alt": "golden man",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/mutated dragon.webp",
+    alt: "mutated dragon",
+    title: "",
+    description: "",
+    category: ["lineart", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/food.webp",
-    "alt": "food",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/gundam.webp",
+    alt: "gundam",
+    title: "",
+    description: "",
+    category: ["lineart", "sci-fi"],
   },
   {
-    "src": "/img/gallery/compressed/tiger2.webp",
-    "alt": "tiger2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/knight.webp",
+    alt: "knight",
+    title: "",
+    description: "",
+    category: ["character"],
   },
   {
-    "src": "/img/gallery/compressed/samus aran small(er).webp",
-    "alt": "samus aran small(er)",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesusSketch.webp",
+    alt: "jesusSketch",
+    title: "",
+    description: "",
+    category: ["sketch", "religion"],
   },
   {
-    "src": "/img/gallery/compressed/fat knight.webp",
-    "alt": "fat knight",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/dragon-sketch.webp",
+    alt: "dragon-sketch",
+    title: "",
+    description: "",
+    category: ["sketch", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/demon.webp",
-    "alt": "demon",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/wild-sketch.webp",
+    alt: "wild-sketch",
+    title: "",
+    description: "",
+    category: ["sketch", "character"],
   },
   {
-    "src": "/img/gallery/compressed/chef knight.webp",
-    "alt": "chef knight",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/monster-knight.webp",
+    alt: "wild-sketch",
+    title: "",
+    description: "",
+    category: ["sketch", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/fishman melee.webp",
-    "alt": "fishman melee",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/robot-girl.webp",
+    alt: "robot-girl",
+    title: "",
+    description: "",
+    category: ["sketch", "character", "sci-fi"],
   },
   {
-    "src": "/img/gallery/compressed/pirate captain.webp",
-    "alt": "pirate captain",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/sketch-giant.webp",
+    alt: "sketch-giant",
+    title: "",
+    description: "",
+    category: ["sketch", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/lion man.webp",
-    "alt": "lion man",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/sketch-hellboy.webp",
+    alt: "sketch-hellboy",
+    title: "",
+    description: "",
+    category: ["sketch", "character"],
   },
   {
-    "src": "/img/gallery/compressed/study3.webp",
-    "alt": "study3",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/sketch-plant.webp",
+    alt: "sketch-plant",
+    title: "",
+    description: "",
+    category: ["sketch", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/drunk.webp",
-    "alt": "drunk",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/sketch-skeleton.webp",
+    alt: "sketch-skeleton",
+    title: "",
+    description: "",
+    category: ["sketch", "monster"],
   },
   {
-    "src": "/img/gallery/compressed/all saints small.webp",
-    "alt": "all saints small",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/otter.webp",
+    alt: "otter",
+    title: "",
+    description: "",
+    category: ["sketch", "character", "animal"],
   },
   {
-    "src": "/img/gallery/compressed/demon lion.webp",
-    "alt": "demon lion",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/wolf.webp",
+    alt: "wolf",
+    title: "",
+    description: "",
+    category: ["sketch", "character", "animal"],
   },
   {
-    "src": "/img/gallery/compressed/undead dragon concept.webp",
-    "alt": "undead dragon concept",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/potions.webp",
+    alt: "potions",
+    title: "",
+    description: "",
+    category: ["asset"],
   },
   {
-    "src": "/img/gallery/compressed/demon2.webp",
-    "alt": "demon2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/sword.webp",
+    alt: "sword",
+    title: "",
+    description: "",
+    category: ["asset"],
   },
   {
-    "src": "/img/gallery/compressed/skull enemy cncpt.webp",
-    "alt": "skull enemy cncpt",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/soul-dagger.webp",
+    alt: "soul-dagger",
+    title: "",
+    description: "",
+    category: ["asset"],
   },
   {
-    "src": "/img/gallery/compressed/skullalt2.webp",
-    "alt": "skullalt2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/dagger.webp",
+    alt: "dagger",
+    title: "",
+    description: "",
+    category: ["asset"],
   },
   {
-    "src": "/img/gallery/compressed/skull.webp",
-    "alt": "skull",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesuscross2.webp",
+    alt: "jesuscross2",
+    title: "",
+    description: "",
+    category: ["religion"],
   },
   {
-    "src": "/img/gallery/compressed/faces male concept.webp",
-    "alt": "faces male concept",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/golden-jesus.webp",
+    alt: "golden-jesus",
+    title: "",
+    description: "",
+    category: ["religion"],
   },
   {
-    "src": "/img/gallery/compressed/predator drone.webp",
-    "alt": "predator drone",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesus.webp",
+    alt: "jesus",
+    title: "",
+    description: "",
+    category: ["religion", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/fatman concept.webp",
-    "alt": "fatman concept",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesus3.webp",
+    alt: "jesus3",
+    title: "",
+    description: "",
+    category: ["religion", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/floating head.webp",
-    "alt": "floating head",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesus4.webp",
+    alt: "jesus4",
+    title: "",
+    description: "",
+    category: ["religion", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/fishman rng.webp",
-    "alt": "fishman rng",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/jesus5.webp",
+    alt: "jesus5",
+    title: "",
+    description: "",
+    category: ["religion", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/mutated dragon.webp",
-    "alt": "mutated dragon",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/hands.webp",
+    alt: "hands",
+    title: "",
+    description: "",
+    category: ["sketch"],
   },
   {
-    "src": "/img/gallery/compressed/wendigo.webp",
-    "alt": "wendigo",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/die1.webp",
+    alt: "die1",
+    title: "",
+    description: "",
+    category: ["illustration"],
   },
   {
-    "src": "/img/gallery/compressed/giant crab concept.webp",
-    "alt": "giant crab concept",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/die2.webp",
+    alt: "die2",
+    title: "",
+    description: "",
+    category: ["illustration"],
   },
   {
-    "src": "/img/gallery/compressed/anime2.webp",
-    "alt": "anime2",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/woman.webp",
+    alt: "woman",
+    title: "",
+    description: "",
+    category: ["character", "portrait"],
   },
   {
-    "src": "/img/gallery/compressed/tiger.webp",
-    "alt": "tiger",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/anime3.webp",
+    alt: "anime3",
+    title: "",
+    description: "",
+    category: ["portrait"],
   },
   {
-    "src": "/img/gallery/compressed/drone.webp",
-    "alt": "drone",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/golden man.webp",
+    alt: "golden man",
+    title: "",
+    description: "",
+    category: ["character"],
   },
   {
-    "src": "/img/gallery/compressed/gooner goblin.webp",
-    "alt": "gooner goblin",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/food.webp",
+    alt: "food",
+    title: "",
+    description: "",
+    category: ["asset"],
   },
   {
-    "src": "/img/gallery/compressed/cat.webp",
-    "alt": "cat",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/food2.webp",
+    alt: "food2",
+    title: "",
+    description: "",
+    category: ["asset"],
   },
   {
-    "src": "/img/gallery/compressed/spider cannon concept.webp",
-    "alt": "spider cannon concept",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/tiger2.webp",
+    alt: "tiger2",
+    title: "",
+    description: "",
+    category: ["illustration", "animal"],
   },
   {
-    "src": "/img/gallery/compressed/enemy4.webp",
-    "alt": "enemy4",
-    "title": "",
-    "description": "",
-    "category": ""
+    src: "/img/gallery/compressed/samus aran small(er).webp",
+    alt: "samus aran small(er)",
+    title: "",
+    description: "",
+    category: ["illustration", "sci-fi", "character", "animal"],
   },
   {
-    "src": "/img/gallery/compressed/pirate sketch.webp",
-    "alt": "pirate sketch",
-    "title": "",
-    "description": "",
-    "category": ""
-  }
+    src: "/img/gallery/compressed/fat knight.webp",
+    alt: "fat knight",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/demon.webp",
+    alt: "demon",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/chef knight.webp",
+    alt: "chef knight",
+    title: "",
+    description: "",
+    category: ["monster", "character"],
+  },
+  {
+    src: "/img/gallery/compressed/fishman melee.webp",
+    alt: "fishman melee",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/pirate captain.webp",
+    alt: "pirate captain",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/lion man.webp",
+    alt: "lion man",
+    title: "",
+    description: "",
+    category: ["monster", "animal"],
+  },
+  {
+    src: "/img/gallery/compressed/study3.webp",
+    alt: "study3",
+    title: "",
+    description: "",
+    category: ["monster", "animal"],
+  },
+  {
+    src: "/img/gallery/compressed/drunk.webp",
+    alt: "drunk",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/all saints small.webp",
+    alt: "all saints small",
+    title: "",
+    description: "",
+    category: ["religion", "illustration"],
+  },
+  {
+    src: "/img/gallery/compressed/demon lion.webp",
+    alt: "demon lion",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/undead dragon concept.webp",
+    alt: "undead dragon concept",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/conf.webp",
+    alt: "conf",
+    title: "",
+    description: "",
+    category: ["character"],
+  },
+  {
+    src: "/img/gallery/compressed/soldier.webp",
+    alt: "soldier",
+    title: "",
+    description: "",
+    category: ["character"],
+  },
+  {
+    src: "/img/gallery/compressed/demon2.webp",
+    alt: "demon2",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/skull enemy cncpt.webp",
+    alt: "skull enemy cncpt",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/skullalt2.webp",
+    alt: "skullalt2",
+    title: "",
+    description: "",
+    category: ["animal"],
+  },
+  {
+    src: "/img/gallery/compressed/skull.webp",
+    alt: "skull",
+    title: "",
+    description: "",
+    category: [],
+  },
+  {
+    src: "/img/gallery/compressed/faces male concept.webp",
+    alt: "faces male concept",
+    title: "",
+    description: "",
+    category: ["character", "portrait", "asset"],
+  },
+  {
+    src: "/img/gallery/compressed/predator drone.webp",
+    alt: "predator drone",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/fatman concept.webp",
+    alt: "fatman concept",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/floating head.webp",
+    alt: "floating head",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/fishman rng.webp",
+    alt: "fishman rng",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/wendigo.webp",
+    alt: "wendigo",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/giant crab concept.webp",
+    alt: "giant crab concept",
+    title: "",
+    description: "",
+    category: ["monster", "animal"],
+  },
+  {
+    src: "/img/gallery/compressed/tiger.webp",
+    alt: "tiger",
+    title: "",
+    description: "",
+    category: ["monster", "animal"],
+  },
+  {
+    src: "/img/gallery/compressed/drone.webp",
+    alt: "drone",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/gooner goblin.webp",
+    alt: "gooner goblin",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/cat.webp",
+    alt: "cat",
+    title: "",
+    description: "",
+    category: ["monster", "animal"],
+  },
+  {
+    src: "/img/gallery/compressed/spider cannon concept.webp",
+    alt: "spider cannon concept",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/enemy4.webp",
+    alt: "enemy4",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
+  {
+    src: "/img/gallery/compressed/pirate sketch.webp",
+    alt: "pirate sketch",
+    title: "",
+    description: "",
+    category: ["monster"],
+  },
 ];
+
 
 // Add id to each item
 items.forEach((item, index) => {
   item.id = `photo${index + 1}`; // Start IDs from 1
 });
+
+// Compute unique categories
+export const allCategories = Array.from(
+  new Set(items.flatMap(item => item.category).filter(Boolean))
+);
 
 export const GET: APIRoute = async ({ request }) => {
   return new Response(
@@ -509,24 +725,38 @@ export const GET: APIRoute = async ({ request }) => {
   );
 };
 
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     // Parse the JSON body
     const body = await request.json();
-    
+
     // Extract parameters from the body
     let pageSize = body.pageSize || 10;
     let page = body.page || 1;
-    
+    let categories = body.categories || [];
+
+    // Filter items by category if specified
+    let filteredItems = items;
+    if (categories.length > 0) {
+      filteredItems = items.filter(item => {
+        // Handle both array and string category fields
+        // All categories must be present in the item category
+        return categories.every(cat => {return item.category.includes(cat);});
+      });
+    }
+
+    console.log("Filtered items:", filteredItems, "items found for categories:", categories);
+
     // Same pagination logic as GET
     let startIndex = (page - 1) * pageSize;
     let endIndex = startIndex + pageSize;
-    let paginatedItems = items.slice(startIndex, endIndex);
+    let paginatedItems = filteredItems.slice(startIndex, endIndex);
 
     return new Response(
       JSON.stringify({
         items: paginatedItems,
-        total: items.length,
+        total: filteredItems.length,
         page: page,
         pageSize: pageSize,
       }),
@@ -541,8 +771,8 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         error: "Failed to process request",
-        details: error.message
-      }), 
+        details: error.message,
+      }),
       {
         status: 400,
         headers: {

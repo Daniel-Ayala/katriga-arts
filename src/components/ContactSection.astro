@@ -1,5 +1,5 @@
 ---
-import Copyright from './Copyright.astro';
+import Copyright from "./Copyright.astro";
 
 // types.ts
 export interface ContactMethodType {
@@ -25,41 +25,92 @@ export interface ContactType {
 
 // Data section
 const contact: ContactType = {
-  title: "Contact Us",
-  subtitle: "Get in touch to discuss your photography needs or book a session with us.",
+  title: "Contact Me",
+  subtitle: "Get in touch to discuss your art needs or book a comission.",
   directContact: {
     title: "Reach Out Directly",
     methods: [
-      { icon: "fas fa-envelope", text: "contact@yourstudio.com", link: "mailto:contact@yourstudio.com" },
-      { icon: "fas fa-phone", text: "+1 (234) 567-890", link: "tel:+1234567890" },
-      { icon: "fas fa-map-marker-alt", text: "123 Studio Lane, New York, NY 10001" }
-    ]
+      {
+        icon: "fas fa-envelope",
+        text: "contact@yourstudio.com",
+        link: "mailto:contact@yourstudio.com",
+      },
+      // { icon: "fas fa-phone", text: "+1 (234) 567-890", link: "tel:+1234567890" },
+      // { icon: "fas fa-map-marker-alt", text: "123 Studio Lane, New York, NY 10001" }
+    ],
   },
   socialLinks: [
-    { platform: "instagram", url: "https://instagram.com", icon: "fab fa-instagram" },
-    { platform: "linkedin", url: "https://linkedin.com", icon: "fab fa-linkedin" },
-    { platform: "twitter", url: "https://twitter.com", icon: "fab fa-twitter" }
-  ]
+    {
+      platform: "instagram",
+      url: "https://www.instagram.com/katriga.arts2/",
+      icon: "fab fa-instagram",
+    },
+  ],
 };
 ---
 
 <div
-  class="section h-screen overflow-y-auto py-24 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24"
+  class="section h-screen overflow-y-auto py-24 flex flex-col scrollable lg:px-16 xl:px-24"
 >
   <div class="container mx-auto px-4">
     <div class="text-center mb-12">
-        <h2 class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal mb-3">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-300">
-              {contact.title}
-            </span>
-        </h2>
-        <p class="text-lg text-neutral-200 max-w-2xl mx-auto font-light">
-            {contact.subtitle}
-        </p>
+      <h2
+        class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal mb-3"
+      >
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white"
+        >
+          {contact.title}
+        </span>
+      </h2>
+      <p class="text-lg text-neutral-200 max-w-2xl mx-auto font-light">
+        {contact.subtitle}
+      </p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       <div
-        x-data="{ form: { name: '', email: '', message: '' }, errors: {} }"
+        x-data="{ 
+      form: { name: '', email: '', message: '' }, 
+      errors: {},
+      async submitForm() {
+        // Reset errors
+        this.errors = {};
+
+        // Validate form
+        if (!this.form.name) {
+          this.errors.name = 'Name is required.';
+        }
+        if (!this.form.email) {
+          this.errors.email = 'Email is required.';
+        }
+        if (!this.form.message) {
+          this.errors.message = 'Message is required.';
+        }
+
+        // If no errors, submit the form
+        if (Object.keys(this.errors).length === 0) {
+          console.log('Submitting form:', this.form);
+          const contents = JSON.stringify(this.form);
+          const response = await fetch('/api/contact-receiver', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: contents,
+          });
+          const data = await response.json();
+          if (data.error) {
+            console.error('Error submitting form:', data.error);
+            alert('There was an error sending your message: ' + data.error);
+            return;
+          }
+          alert('The contact form is still under development. Please contact me via email.');
+          this.form = { name: '', email: '', message: '' }; // Reset form
+        } else {
+          console.error('Form errors:', this.errors);
+        }
+      }
+    }"
         @submit.prevent="submitForm"
       >
         <form class="space-y-6">
@@ -70,8 +121,9 @@ const contact: ContactType = {
             <input
               id="name"
               type="text"
+              required
               x-model="form.name"
-              class="w-full bg-neutral-800/50 border border-neutral-600 text-white rounded-md px-4 py-3 focus:outline-none focus:border-yellow-300 transition-all"
+              class="w-full bg-neutral-800/50 border border-neutral-600 text-white rounded-md px-4 py-3 focus:outline-none focus:border-white transition-all"
               :class="{ 'border-red-500': errors.name }"
               placeholder="Your Name"
             />
@@ -79,7 +131,8 @@ const contact: ContactType = {
               x-show="errors.name"
               class="text-red-500 text-sm mt-1"
               x-text="errors.name"
-            ></p>
+            >
+            </p>
           </div>
           <div>
             <label for="email" class="block text-neutral-200 font-medium mb-2"
@@ -88,8 +141,9 @@ const contact: ContactType = {
             <input
               id="email"
               type="email"
+              required
               x-model="form.email"
-              class="w-full bg-neutral-800/50 border border-neutral-600 text-white rounded-md px-4 py-3 focus:outline-none focus:border-yellow-300 transition-all"
+              class="w-full bg-neutral-800/50 border border-neutral-600 text-white rounded-md px-4 py-3 focus:outline-none focus:border-white transition-all"
               :class="{ 'border-red-500': errors.email }"
               placeholder="Your Email"
             />
@@ -97,7 +151,8 @@ const contact: ContactType = {
               x-show="errors.email"
               class="text-red-500 text-sm mt-1"
               x-text="errors.email"
-            ></p>
+            >
+            </p>
           </div>
           <div>
             <label for="message" class="block text-neutral-200 font-medium mb-2"
@@ -105,53 +160,60 @@ const contact: ContactType = {
             >
             <textarea
               id="message"
+              required
               x-model="form.message"
-              class="w-full bg-neutral-800/50 border border-neutral-600 text-white rounded-md px-4 py-3 focus:outline-none focus:border-yellow-300 transition-all resize-none"
+              class="w-full bg-neutral-800/50 border border-neutral-600 text-white rounded-md px-4 py-3 focus:outline-none focus:border-white transition-all resize-none"
               :class="{ 'border-red-500': errors.message }"
               rows="5"
-              placeholder="Your Message"
-            ></textarea>
+              placeholder="Your Message"></textarea>
             <p
               x-show="errors.message"
               class="text-red-500 text-sm mt-1"
               x-text="errors.message"
-            ></p>
+            >
+            </p>
           </div>
           <button
             type="submit"
-            class="w-full bg-yellow-300 hover:bg-yellow-400 text-black px-6 py-3 rounded-md text-lg font-medium transition-all flex items-center justify-center"
+            class="w-full bg-white hover:bg-white text-black px-6 py-3 rounded-md text-lg font-medium transition-all flex items-center justify-center"
           >
             <i class="fas fa-paper-plane mr-2"></i> Send Message
           </button>
         </form>
       </div>
       <div class="flex flex-col justify-center space-y-6 animate-reveal">
-        <h3 class="text-2xl font-semibold text-white mb-4">{contact.directContact.title}</h3>
-        {contact.directContact.methods.map((method) => (
-          <div class="flex items-center">
-            <i class={`${method.icon} text-yellow-300 text-2xl mr-3`}></i>
-            {method.link ? (
-              <a
-                href={method.link}
-                class="text-neutral-200 hover:text-yellow-300 transition-colors"
-              >
-                {method.text}
-              </a>
-            ) : (
-              <span class="text-neutral-200">{method.text}</span>
-            )}
-          </div>
-        ))}
+        <h3 class="text-2xl font-semibold text-white mb-4">
+          {contact.directContact.title}
+        </h3>
+        {
+          contact.directContact.methods.map((method) => (
+            <div class="flex items-center">
+              <i class={`${method.icon} text-white text-2xl mr-3`} />
+              {method.link ? (
+                <a
+                  href={method.link}
+                  class="text-neutral-200 hover:text-white transition-colors"
+                >
+                  {method.text}
+                </a>
+              ) : (
+                <span class="text-neutral-200">{method.text}</span>
+              )}
+            </div>
+          ))
+        }
         <div class="flex space-x-4 mt-6">
-          {contact.socialLinks.map((link) => (
-            <a
-              href={link.url}
-              target="_blank"
-              class="text-neutral-200 hover:text-yellow-300 transition-colors"
-            >
-              <i class={`${link.icon} text-2xl`}></i>
-            </a>
-          ))}
+          {
+            contact.socialLinks.map((link) => (
+              <a
+                href={link.url}
+                target="_blank"
+                class="text-neutral-200 hover:text-white transition-colors"
+              >
+                <i class={`${link.icon} text-2xl`} />
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>

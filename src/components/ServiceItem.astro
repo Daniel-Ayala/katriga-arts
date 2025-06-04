@@ -6,12 +6,29 @@ interface Props {
   price: string;
   duration: string;
   img1: string;
+  img1ObjPosition?: string;
   img2: string;
+  img2ObjPosition?: string;
   img3: string;
+  img3ObjPosition?: string;
 }
 
-const { icon, title, description, price, duration, img1, img2, img3 } =
-  Astro.props;
+const {
+  icon,
+  title,
+  description,
+  price,
+  duration,
+  img1,
+  img2,
+  img3,
+  img1ObjPosition,
+  img2ObjPosition,
+  img3ObjPosition,
+} = Astro.props;
+const style1 = "object-position: " + (img1ObjPosition || "center");
+const style2 = "object-position: " + (img2ObjPosition || "center");
+const style3 = "object-position: " + (img3ObjPosition || "center");
 ---
 
 <div
@@ -20,11 +37,11 @@ const { icon, title, description, price, duration, img1, img2, img3 } =
   <div class="service-item-info p-6">
     <div class="flex items-center justify-center mb-4">
       <!-- <i class={`fas ${icon} text-3xl text-white mr-3`}></i>  -->
-      <h3 class="text-xlfont-semibold text-white">{title}</h3>
+      <h3 class="text-xl font-semibold text-white">{title}</h3>
     </div>
     <p class="text-neutral-200 text-base mb-4">{description}</p>
-    <div class="flex justify-between items-center mb-4">
-      <span class="text-white font-medium">{price}</span>
+    <div class="justify-center items-center mb-4">
+      <span class="price text-white font-medium">{price}</span>
       <!-- <span class="text-neutral-400 text-sm">{duration}</span>  -->
     </div>
   </div>
@@ -32,21 +49,42 @@ const { icon, title, description, price, duration, img1, img2, img3 } =
     {
       img1 && (
         <div class="example-container example-container-1">
-          <img class="example example1" src={img1} alt="Example 1" />
+          <a href={img1} target="_blank" rel="noopener noreferrer">
+            <img
+              class="example example1"
+              style={style1}
+              src={img1}
+              alt="Example 1"
+            />
+          </a>
         </div>
       )
     }
     {
       img2 && (
         <div class="example-container example-container-2">
-          <img class="example example2" src={img2} alt="Example 2" />
+          <a href={img2} target="_blank" rel="noopener noreferrer">
+            <img
+              class="example example2"
+              style={style2}
+              src={img2}
+              alt="Example 2"
+            />
+          </a>
         </div>
       )
     }
     {
       img3 && (
         <div class="example-container example-container-3">
-          <img class="example example3" src={img3} alt="Example 3" />
+          <a href={img3} target="_blank" rel="noopener noreferrer">
+            <img
+              class="example example3"
+              style={style3}
+              src={img3}
+              alt="Example 3"
+            />
+          </a>
         </div>
       )
     }

@@ -20,51 +20,90 @@ const services: Service[] = [
   {
     icon: "",
     title: "Sketches",
-    description: "Loose black-and-white or lightly colored sketches. Ideal for quick ideas or early concept exploration.",
-    price: "~$30-60",
+    description:
+      "Loose black-and-white or lightly colored sketches. Ideal for quick ideas or early concept exploration.",
+    price: "~$30–$60",
     duration: "",
-    img1: "/img/gallery/compressed/angel.webp",
-    img2: "/img/gallery/compressed/dragon.webp",
-    img3: "/img/gallery/compressed/enemy4.webp",
+    img1: "/img/gallery/compressed/monster-knight.webp",
+    img1ObjPosition: "top",
+    img2: "/img/gallery/compressed/wild-sketch.webp",
+    img2ObjPosition: "center",
+    img3: "/img/gallery/compressed/dragon-sketch.webp",
+    img3ObjPosition: "top",
   },
   {
     icon: "",
     title: "Character Design",
     description:
       "Custom characters with optional front/back views, expressions, or outfit variations. Suitable for games, stories, or worldbuilding.",
-    price: "~$150-400",
+    price: "~$150–$400",
     duration: "",
+    img1: "/img/gallery/compressed/knight.webp",
+    img1ObjPosition: "top",
   },
   {
     icon: "",
     title: "Full Illustration",
     description:
       "Highly detailed, fully rendered artwork. Includes characters, backgrounds, and lighting — perfect for covers or key scenes.",
-    price: "~$200-1000",
+    price: "~$200–$1000",
     duration: "",
+    img1: "/img/gallery/compressed/angel death.webp",
+    img2: "/img/gallery/compressed/Space-Marine-2.webp",
+    img2ObjPosition: "top",
+    img3: "/img/gallery/compressed/gabriel.webp",
+    img3ObjPosition: "top",
   },
   {
     icon: "",
     title: "Portraits",
     description:
       "Bust or full-body painted portraits in a realistic or stylized aesthetic. Personal, gift, or fantasy-themed options available (and pets, too).",
-    price: "~$80-250",
+    price: "~$80–$250",
     duration: "Full-day coverage",
+    img1: "/img/gallery/compressed/fluffy-cat.webp",
+    img2: "/img/gallery/compressed/portrait2.webp",
+    img3: "/img/gallery/compressed/portrait6.webp",
   },
   {
     icon: "",
     title: "Comics & Sequential Art",
     description:
-      "Comic pages or narrative sequences. Includes layout, paneling, and optional color. For short stories or visual storytelling.",
-    price: "~$80-200 per page",
+      "Comic pages or narrative sequences. Includes layout, paneling, and optional color, or just faster sketches. For short stories or visual storytelling.",
+    price: "~$50–$200 per page",
     duration: "",
+    img1: "/img/gallery/compressed/comic-page.webp",
   },
   {
     icon: "",
     title: "Advanced lineart & hatching",
     description:
       "Black and white drawings with high detail and complexity. Great for book illustrations, posters, or intricate designs.",
-    price: "~$150-600",
+    price: "~$150–$600",
+    duration: "",
+    img1: "/img/gallery/compressed/mutated dragon.webp",
+    img1ObjPosition: "top",
+    img2: "/img/gallery/compressed/dragon.webp",
+    img2ObjPosition: "left",
+    img3: "/img/gallery/compressed/gundam.webp",
+    img3ObjPosition: "top",
+  },
+  {
+    icon: "",
+    title: "Emotes & Icons",
+    description:
+      "Custom expressive emotes and profile icons for Twitch, Discord, and social media.",
+    price: "~$10–$40 per emote/icon",
+    duration: "",
+    img1: "/img/gallery/compressed/potions.webp",
+    img2: "/img/gallery/compressed/sword.webp",
+  },
+  {
+    icon: "",
+    title: "Other Services",
+    description:
+      "Video thumbnails, stream overlays, and other digital art needs. Contact for custom quotes.",
+    price: "???",
     duration: "",
   },
 ];
@@ -72,7 +111,7 @@ const services: Service[] = [
 const sectionData: HeadingService = {
   title: "My Services",
   description:
-    "Discover my range of professional art services. All services include commercial rights and high-resolution files.",
+    "Discover my range of professional art services. All comission services include commercial rights and high-resolution files. No NSFW. Prices can be lower or higher if we agree on a particularly simple or complex piece.",
 };
 ---
 
@@ -105,6 +144,17 @@ const sectionData: HeadingService = {
         Additional mid-major revisions are $10-50 each, depending on complexity.
       </p>
     </div>
+
+    <button
+      @click="goToSlide(4)"
+      class="relative bg-transparent border-2 border-white text-white mt-10 px-8 py-3 rounded-md text-lg font-medium hover:bg-white hover:text-black transition-all duration-300 overflow-hidden group text mx-auto block"
+    >
+      <span class="relative z-10">Contact Me</span>
+      <span
+        class="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
+      ></span>
+    </button>
+
     <Copyright />
   </div>
 </div>

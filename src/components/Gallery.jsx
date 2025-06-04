@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import GalleryItem from "./GalleryItem";
 import Masonry from "masonry-layout";
-import { onScroll, animate } from "animejs";
+import { onScroll, animate, stagger } from "animejs";
 import imagesLoaded from "imagesloaded";
 import GLightbox from "glightbox";
 import "glightbox/dist/css/glightbox.min.css";
@@ -38,7 +38,8 @@ const Gallery = ({
   buttonText = "Load More",
   initialItems = [],
   pageSize = 5,
-  apiUrl
+  apiUrl,
+  categories = [],
 }) => {
   // State management
   const [items, setItems] = useState(initialItems);
@@ -46,6 +47,7 @@ const Gallery = ({
   const [numberOfItems, setNumberOfItems] = useState(initialItems.length);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonState, setButtonState] = useState(buttonText);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   // Create a ref for the masonry grid
   const masonryRef = useRef(null);
@@ -93,33 +95,55 @@ const Gallery = ({
 
   // Update layout when items change
   useEffect(() => {
-    if (masonryInstanceRef.current && items.length > initialItems.length) {
+    if (masonryInstanceRef.current) {
       // Wait for new images to load before updating layout
-
       imagesLoaded(masonryRef.current, () => {
         masonryInstanceRef.current.reloadItems();
         masonryInstanceRef.current.layout();
-
         animateItems();
       });
     }
-  }, [items, initialItems.length]);
+  }, [items]);
 
-  // Handle loading more items
-  const handleLoadMore = async () => {
-    console.log("Loading more items...");
+  // Load items with current filter when categories change
+  useEffect(() => {
+    // Only reload if we've made a selection change (not on initial load)
+    if (
+      selectedCategories.length > 0 ||
+      (currentPage === 1 && items !== initialItems)
+    ) {
+      fetchItems(1);
+    }
+  }, [selectedCategories]);
+
+  // Toggle a category selection
+  const toggleCategory = (category) => {
+    setSelectedCategories((prev) => {
+      if (prev.includes(category)) {
+        return prev.filter((cat) => cat !== category);
+      } else {
+        return [...prev, category];
+      }
+    });
+    setCurrentPage(1); // Reset to page 1 when filters change
+  };
+
+  // Fetch items with filters
+  const fetchItems = async (page = 1) => {
     if (isLoading) return;
 
     try {
       setIsLoading(true);
       setButtonState("Loading...");
 
-      const nextPage = currentPage + 1;
-      setCurrentPage(nextPage);
+      // Create request payload
       let contents = JSON.stringify({
         pageSize: pageSize,
-        page: nextPage,
+        page: page,
+        categories:
+          selectedCategories.length > 0 ? selectedCategories : undefined,
       });
+
       // Make API request
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -131,22 +155,31 @@ const Gallery = ({
       const data = await response.json();
 
       // If no more items, disable the button
-      if (data.items.length === 0) {
+      if (data.items.length === 0 && page > 1) {
         setButtonState("No more items");
+        setIsLoading(false);
         return;
       }
-      console.log("Loaded items:", data.items);
-      // Add new items to the gallery
-      setItems((prevItems) => [...prevItems, ...data.items]);
 
-      // Restore button text
+      // Replace items if it's page 1, otherwise append
+      if (page === 1) {
+        setItems(data.items);
+      } else {
+        setItems((prevItems) => [...prevItems, ...data.items]);
+      }
+      setCurrentPage(page);
       setButtonState(buttonText);
     } catch (error) {
-      console.error("Error loading more items:", error);
+      console.error("Error loading items:", error);
       setButtonState("Error loading items");
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Handle loading more items
+  const handleLoadMore = () => {
+    fetchItems(currentPage + 1);
   };
 
   return (
@@ -163,19 +196,46 @@ const Gallery = ({
         <p className="text-lg text-neutral-200 max-w-2xl mx-auto font-light">
           {subtitle}
         </p>
+
+        {/* Category Filters */}
+        {categories.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2 mt-4 categories">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => toggleCategory(category)}
+                className={`category px-3 py-1 rounded-full text-md font-medium transition-all duration-300 ${
+                  selectedCategories.includes(category)
+                    ? "category-active"
+                    : "category-inactive"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="container mx-auto px-4">
-        <div id="gallery-grid" ref={masonryRef} className="gallery-masonry">
-          {items.map((item, index) => (
-            <div
-              key={`${item.src}-${index}`}
-              className="gallery-item-wrapper w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2"
-            >
-              <GalleryItem {...item} />
-            </div>
-          ))}
-        </div>
+        {items.length === 0 && !isLoading ? (
+          <div className="text-center py-8">
+            <p className="text-neutral-300">
+              No items match your selected filters.
+            </p>
+          </div>
+        ) : (
+          <div id="gallery-grid" ref={masonryRef} className="gallery-masonry">
+            {items.map((item, index) => (
+              <div
+                key={`${item.src}-${index}`}
+                className="gallery-item-wrapper w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2"
+              >
+                <GalleryItem {...item} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="container mx-auto px-4 text-center mt-12">
@@ -188,8 +248,6 @@ const Gallery = ({
           <span className="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>
         </button>
       </div>
-
-      {/* Footer copyright section can be added separately */}
     </div>
   );
 };
