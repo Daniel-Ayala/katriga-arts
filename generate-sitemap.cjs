@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const baseUrl = "https://tusitio.com"; // 🔁 Cambia esto por tu dominio real
+const baseUrl = "https://katriga.art/";
 const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

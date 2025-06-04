@@ -199,7 +199,7 @@ const Gallery = ({
 
         {/* Category Filters */}
         {categories.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-2 mt-4 categories">
+          <div className="flex flex-wrap justify-center gap-4 mt-4 categories">
             {categories.map((category) => (
               <button
                 key={category}

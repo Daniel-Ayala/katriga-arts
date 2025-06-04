@@ -141,7 +141,7 @@ export const items = [
     alt: "death",
     title: "",
     description: "",
-    category: ["character"],
+    category: ["illustration", "character"],
   },
   {
     src: "/img/gallery/compressed/war.webp",

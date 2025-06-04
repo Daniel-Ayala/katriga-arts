@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://tusitio.com/sitemap.xml
+Sitemap: https://katriga.art/sitemap.xml

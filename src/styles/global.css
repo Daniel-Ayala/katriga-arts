@@ -405,7 +405,11 @@ form {
   }
 }
 .category{
-  border: solid 2px white;
+  outline: solid 2px white;
+
+  &:hover {
+    transform: scale(1.15) !important;
+  }
 }
 .category-active {
   color: black;
