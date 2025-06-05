@@ -242,7 +242,7 @@ const Gallery = ({
         <button
           onClick={handleLoadMore}
           disabled={isLoading || buttonState === "No more items"}
-          className="relative bg-transparent border-2 border-white text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-white hover:text-black transition-all duration-300 overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+          className="relative bg-transparent border-2 border-white text-white px-8 py-3 mb-8 rounded-md text-lg font-medium hover:bg-white hover:text-black transition-all duration-300 overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span className="relative z-10">{buttonState}</span>
           <span className="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>

@@ -69,6 +69,11 @@ h4 {
   border-image-repeat: stretch;
   padding: 100px;
 }
+@media screen and (max-width: 767px) {
+  #form-container {
+    padding: 150px 30px 150px 30px;
+  }
+}
 /*
 #form-container {
   border-image-source: url("/img/full_frame.svg");
