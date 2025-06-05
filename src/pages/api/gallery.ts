@@ -746,8 +746,6 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    console.log("Filtered items:", filteredItems, "items found for categories:", categories);
-
     // Same pagination logic as GET
     let startIndex = (page - 1) * pageSize;
     let endIndex = startIndex + pageSize;

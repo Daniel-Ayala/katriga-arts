@@ -185,7 +185,7 @@ const Gallery = ({
   return (
     <div
       id="scrollContainer"
-      className="section h-screen overflow-y-auto py-24 flex flex-col scrollable lg:px-16 xl:px-24"
+      className="section h-screen overflow-y-auto py-8 flex flex-col scrollable lg:px-16 xl:px-24"
     >
       <div className="container mx-auto px-4 text-center mb-12">
         <h2 className="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal mb-3">

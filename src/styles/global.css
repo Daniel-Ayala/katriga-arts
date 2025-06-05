@@ -61,13 +61,23 @@ h4 {
   top: 40px;
   left: 40px;
 }
+
+#form-container {
+  border-image-source: url("/img/full_frame.webp");
+  border-image-slice: 250;
+  border-image-width: 150px;
+  border-image-repeat: stretch;
+  padding: 100px;
+}
+/*
 #form-container {
   border-image-source: url("/img/full_frame.svg");
   border-image-slice: 200;
   border-image-width: 150px;
-  border-image-repeat: round;
+  border-image-repeat: stretch;
   padding: 100px;
-}
+  
+}*/
 .corner {
   background-image: url("/img/corner_plain.svg");
   background-size: cover;
