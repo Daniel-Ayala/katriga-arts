@@ -61,6 +61,13 @@ h4 {
   top: 40px;
   left: 40px;
 }
+#form-container {
+  border-image-source: url("/img/full_frame.svg");
+  border-image-slice: 200;
+  border-image-width: 150px;
+  border-image-repeat: round;
+  padding: 100px;
+}
 .corner {
   background-image: url("/img/corner_plain.svg");
   background-size: cover;
@@ -413,7 +420,8 @@ form {
 }
 .category-active {
   color: black;
-  background-color: white;
+  backdrop-filter: invert(1);
+  outline-color: transparent;
 }
 
 .price{
