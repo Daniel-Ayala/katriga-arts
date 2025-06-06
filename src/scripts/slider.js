@@ -19,6 +19,7 @@ document.addEventListener("alpine:init", () => {
 
     init() {
       this.$nextTick(() => {
+        const self = this;
         console.log("Initializing Splide slider");
         const sliderEl = document.querySelector("#main-slider");
         if (!sliderEl) {
@@ -39,91 +40,192 @@ document.addEventListener("alpine:init", () => {
           wheel: false,
         });
 
-        // Configuración mejorada para scroll con confirmación
-        let scrollTimeout;
-        let isScrollProcessing = false;
-
-        // Variables para acumular el "impulso" del scroll
+        // Variables para acumular el "impulso" del scroll/swipe
         let scrollAccumulator = 0;
-        const scrollThreshold = 1000; // Ajustar según necesidad
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isScrollProcessing = false;
+        let scrollTimeout;
+        const scrollThreshold = 1000;
+        const swipeThreshold = 500; // Umbral para swipes (más bajo que scroll)
 
-        window.addEventListener(
-          "wheel",
-          (e) => {
-            if (isScrollProcessing) return;
-            const scrollAccumulatorBar = document.getElementById("scroll-accumulator");
-            const currentSlide =
-              this.splide.Components.Elements.slides[this.activeSlide];
-            const slideContent =
-              currentSlide.querySelector(".scrollable") || currentSlide;
+        // Mantener la detección de eventos de rueda para escritorio
+        window.addEventListener("wheel", handleScrollEvent, { passive: false });
+        document.addEventListener("touchstart", handleTouchStart, {
+          passive: false,
+        });
+        document.addEventListener("touchmove", handleTouchMove, {
+          passive: false,
+        });
 
-            // Detectamos si estamos en el fondo de la sección actual (scrolling down)
+        // Función para manejar evento de inicio de toque
+        function handleTouchStart(e) {
+          touchStartY = e.touches[0].clientY;
+          touchStartX = e.touches[0].clientX;
+        }
+
+        // Función para manejar movimiento táctil
+        function handleTouchMove(e) {
+          if (isScrollProcessing) return;
+
+          const currentSlide =
+            self.splide.Components.Elements.slides[self.activeSlide];
+          const slideContent =
+            currentSlide.querySelector(".scrollable") || currentSlide;
+          const scrollAccumulatorBar =
+            document.getElementById("scroll-accumulator");
+
+          // Calcular distancia del deslizamiento
+          const touchY = e.touches[0].clientY;
+          const touchX = e.touches[0].clientX;
+          const deltaY = touchStartY - touchY;
+          const deltaX = touchStartX - touchX;
+
+          // Verificar si es un deslizamiento más vertical que horizontal
+          if (Math.abs(deltaY) > Math.abs(deltaX)) {
+            // Mismas comprobaciones de límites que en el wheel
             const isAtBottom =
               slideContent.scrollHeight - slideContent.scrollTop <=
               slideContent.clientHeight + 5;
-
-            // Detectamos si estamos en la parte superior (scrolling up)
             const isAtTop = slideContent.scrollTop <= 5;
 
-            // Si estamos en un límite, acumulamos el impulso del scroll
+            // Si estamos en un límite, procesamos el swipe
             if (
-              (e.deltaY > 0 &&
+              (deltaY > 0 &&
                 isAtBottom &&
-                this.activeSlide < this.splide.length - 1) ||
-              (e.deltaY < 0 && isAtTop && this.activeSlide > 0)
+                self.activeSlide < self.splide.length - 1) ||
+              (deltaY < 0 && isAtTop && self.activeSlide > 0)
             ) {
-              e.preventDefault(); // Previene el scroll visual
+              e.preventDefault(); // Prevenir scroll natural
 
-              // Acumular el impulso (valor absoluto para que funcione en ambas direcciones)
-              scrollAccumulator += Math.abs(e.deltaY);
+              // Acumular el impulso del swipe
+              scrollAccumulator += Math.abs(deltaY);
               scrollAccumulatorBar.style.width = `${Math.min(
-                (scrollAccumulator / scrollThreshold) * 100,100)}%`;
-              if (isAtBottom) {
+                (scrollAccumulator / swipeThreshold) * 100,
+                100
+              )}%`;
+
+              // Indicador visual según la dirección
+              if (deltaY > 0) {
+                // Swipe hacia arriba
                 scrollAccumulatorBar.style.bottom = "0";
                 scrollAccumulatorBar.style.top = "auto";
               } else {
+                // Swipe hacia abajo
                 scrollAccumulatorBar.style.top = "0";
                 scrollAccumulatorBar.style.bottom = "auto";
               }
 
               // Si alcanzamos el umbral, cambiamos de sección
-              if (scrollAccumulator >= scrollThreshold) {
+              if (scrollAccumulator >= swipeThreshold) {
                 scrollAccumulatorBar.style.width = "100%";
                 isScrollProcessing = true;
 
-                // Determinar dirección y navegar
-                if (e.deltaY > 0) {
-                  this.goToSlide(this.activeSlide + 1);
+                // Navegar según la dirección del swipe
+                if (deltaY > 0) {
+                  self.goToSlide(self.activeSlide + 1);
                 } else {
-                  this.goToSlide(this.activeSlide - 1);
+                  self.goToSlide(self.activeSlide - 1);
                 }
 
-                // Resetear acumulador
+                // Reseteo
                 scrollAccumulator = 0;
                 scrollAccumulatorBar.style.width = "0%";
 
-                // Configurar timeout para permitir otro cambio
+                // Tiempo de espera antes de permitir otra navegación
                 clearTimeout(scrollTimeout);
                 scrollTimeout = setTimeout(() => {
                   isScrollProcessing = false;
                 }, 1000);
               }
             } else {
-              // Si no estamos en un límite, resetear el acumulador
+              // Si no estamos en un límite, permitir el scroll normal
               scrollAccumulator = 0;
               scrollAccumulatorBar.style.width = "0%";
             }
 
-            // Resetear también el acumulador si el usuario deja de hacer scroll
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
+            // Actualizar posición inicial para el próximo movimiento
+            touchStartY = touchY;
+            touchStartX = touchX;
+          }
+        }
+
+        function handleScrollEvent(e) {
+          if (isScrollProcessing) return;
+          const scrollAccumulatorBar =
+            document.getElementById("scroll-accumulator");
+          const currentSlide =
+            self.splide.Components.Elements.slides[self.activeSlide];
+          const slideContent =
+            currentSlide.querySelector(".scrollable") || currentSlide;
+
+          // Detectamos si estamos en el fondo de la sección actual (scrolling down)
+          const isAtBottom =
+            slideContent.scrollHeight - slideContent.scrollTop <=
+            slideContent.clientHeight + 5;
+
+          // Detectamos si estamos en la parte superior (scrolling up)
+          const isAtTop = slideContent.scrollTop <= 5;
+
+          // Si estamos en un límite, acumulamos el impulso del scroll
+          if (
+            (e.deltaY > 0 &&
+              isAtBottom &&
+              self.activeSlide < self.splide.length - 1) ||
+            (e.deltaY < 0 && isAtTop && self.activeSlide > 0)
+          ) {
+            e.preventDefault(); // Previene el scroll visual
+
+            // Acumular el impulso (valor absoluto para que funcione en ambas direcciones)
+            scrollAccumulator += Math.abs(e.deltaY);
+            scrollAccumulatorBar.style.width = `${Math.min(
+              (scrollAccumulator / scrollThreshold) * 100,
+              100
+            )}%`;
+            if (isAtBottom) {
+              scrollAccumulatorBar.style.bottom = "0";
+              scrollAccumulatorBar.style.top = "auto";
+            } else {
+              scrollAccumulatorBar.style.top = "0";
+              scrollAccumulatorBar.style.bottom = "auto";
+            }
+
+            // Si alcanzamos el umbral, cambiamos de sección
+            if (scrollAccumulator >= scrollThreshold) {
+              scrollAccumulatorBar.style.width = "100%";
+              isScrollProcessing = true;
+
+              // Determinar dirección y navegar
+              if (e.deltaY > 0) {
+                self.goToSlide(self.activeSlide + 1);
+              } else {
+                self.goToSlide(self.activeSlide - 1);
+              }
+
+              // Resetear acumulador
               scrollAccumulator = 0;
               scrollAccumulatorBar.style.width = "0%";
-              isScrollProcessing = false;
-            }, 500); // Tiempo corto para detectar pausa en el scroll
-          },
-          { passive: false }
-        );
+
+              // Configurar timeout para permitir otro cambio
+              clearTimeout(scrollTimeout);
+              scrollTimeout = setTimeout(() => {
+                isScrollProcessing = false;
+              }, 1000);
+            }
+          } else {
+            // Si no estamos en un límite, resetear el acumulador
+            scrollAccumulator = 0;
+            scrollAccumulatorBar.style.width = "0%";
+          }
+
+          // Resetear también el acumulador si el usuario deja de hacer scroll
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            scrollAccumulator = 0;
+            scrollAccumulatorBar.style.width = "0%";
+            isScrollProcessing = false;
+          }, 500); // Tiempo corto para detectar pausa en el scroll
+        }
 
         this.splide.on("mounted", () => {
           console.log(
