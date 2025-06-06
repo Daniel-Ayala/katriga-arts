@@ -473,6 +473,13 @@ export const items = [
     category: ["illustration", "animal"],
   },
   {
+    src: "/img/gallery/compressed/tiger-lady.webp",
+    alt: "tiger-lady",
+    title: "",
+    description: "",
+    category: ["illustration", "animal", "character"],
+  },
+  {
     src: "/img/gallery/compressed/samus aran small(er).webp",
     alt: "samus aran small(er)",
     title: "",
