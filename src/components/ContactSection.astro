@@ -104,7 +104,7 @@ const contact: ContactType = {
             alert('There was an error sending your message: ' + data.error);
             return;
           }
-          alert('The contact form is still under development. Please contact me via email.');
+          alert('The message was sent successfully.');
           this.form = { name: '', email: '', message: '' }; // Reset form
         } else {
           console.error('Form errors:', this.errors);
