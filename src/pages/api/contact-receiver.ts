@@ -4,10 +4,56 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
 
-export const POST: APIRoute = async ({ request }) => {
+const RATE_LIMIT_WINDOW = 3600000; // 1 hour in milliseconds
+const MAX_REQUESTS_PER_IP = 5; // Maximum requests per IP in the window
+const ipRequestMap = new Map<string, { count: number; timestamp: number }>();
+
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
+    // Rate limiting
+    const ip = clientAddress;
+    const now = Date.now();
+    const ipData = ipRequestMap.get(ip);
+
+    console.log("IP Address:", ip);
+    console.log(ipData);
+
+    // Check if this IP has made requests before
+    if (ipData) {
+      // Reset count if outside the window
+      if (now - ipData.timestamp > RATE_LIMIT_WINDOW) {
+        ipRequestMap.set(ip, { count: 1, timestamp: now });
+      } else if (ipData.count >= MAX_REQUESTS_PER_IP) {
+        // Too many requests
+        return new Response(
+          JSON.stringify({
+            error: "Too many requests. Please try again later.",
+          }),
+          { status: 429, headers: { "Content-Type": "application/json" } }
+        );
+      } else {
+        // Increment count
+        ipRequestMap.set(ip, {
+          count: ipData.count + 1,
+          timestamp: ipData.timestamp,
+        });
+      }
+    } else {
+      // First request from this IP
+      ipRequestMap.set(ip, { count: 1, timestamp: now });
+    }
+
     // Parse the JSON body
     const body = await request.json();
+
+    if (body.writeMe) {
+      // If this field is filled, it's likely a bot
+      console.log("Bot detected, silently rejecting");
+      return new Response(
+        JSON.stringify({ message: "Your message has been received" }), // Fake success
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     // Extract parameters
     let name = body.name || "Anonymous";
@@ -36,7 +82,8 @@ export const POST: APIRoute = async ({ request }) => {
     // Send email
     const { data, error } = await resend.emails.send({
       from: "Contact Form <contact-form@katriga.art>",
-      to: ["dominik.rnjak@protonmail.com"],
+      to: ["danielayalahernandez@hotmail.com"],
+      //to: ["dominik.rnjak@protonmail.com"],
       subject: `New contact from ${name}`,
       replyTo: email,
       html: `

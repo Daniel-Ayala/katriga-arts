@@ -114,6 +114,15 @@ const contact: ContactType = {
         @submit.prevent="submitForm"
       >
         <form class="space-y-6">
+          <div style="display:none">
+            <input
+              type="text"
+              name="writeMe"
+              x-model="form.writeMe"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
           <div>
             <label for="name" class="block text-neutral-200 font-medium mb-2"
               >Name</label
