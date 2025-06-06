@@ -119,31 +119,25 @@ const sectionData: HeadingService = {
 const schemaMarkup = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  itemListElement: services
-    .filter((service) => !service.filler)
+  "itemListElement": services
+    .filter((service) => !service.filler && service.title != "Other Services")
     .map((service, index) => ({
       "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Service",
-        name: service.title,
-        description: service.description,
-        offers: {
+      "position": index + 1,
+      "item": {
+        "@type": "Product",
+        "name": service.title,
+        "description": service.description,
+        "offers": {
           "@type": "Offer",
-          price: service.price.replace(/[~$]/g, "").split("–")[0].trim(),
-          priceCurrency: "USD",
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            valueAddedTaxIncluded: false,
-            minPrice: service.price.replace(/[~$]/g, "").split("–")[0].trim(),
-            maxPrice: service.price.includes("–")
-              ? service.price.replace(/[~$]/g, "").split("–")[1].trim()
-              : undefined,
-          },
+          "price": service.price.replace(/[~$]/g, "").split("–")[0].trim(),
+          "priceCurrency": "USD",
+          "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+          "availability": "https://schema.org/InStock"
         },
-        image: [service.img1, service.img2, service.img3].filter(Boolean),
-      },
-    })),
+        "image": [service.img1, service.img2, service.img3].filter(Boolean)
+      }
+    }))
 };
 ---
 
@@ -151,7 +145,7 @@ const schemaMarkup = {
   class="section h-screen overflow-y-auto py-8 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24"
 >
   <script type="application/ld+json" set:html={JSON.stringify(schemaMarkup)} />
-  
+
   <div class="container mx-auto px-4">
     <div class="text-center mb-12">
       <h2
