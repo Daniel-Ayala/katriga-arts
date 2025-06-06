@@ -82,8 +82,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     // Send email
     const { data, error } = await resend.emails.send({
       from: "Contact Form <contact-form@katriga.art>",
-      to: ["danielayalahernandez@hotmail.com"],
-      //to: ["dominik.rnjak@protonmail.com"],
+      to: ["dominik.rnjak@protonmail.com"],
       subject: `New contact from ${name}`,
       replyTo: email,
       html: `
