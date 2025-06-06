@@ -182,7 +182,7 @@ document.addEventListener("alpine:init", () => {
               (scrollAccumulator / scrollThreshold) * 100,
               100
             )}%`;
-            if (isAtBottom) {
+            if (e.deltaY > 0) {
               scrollAccumulatorBar.style.bottom = "0";
               scrollAccumulatorBar.style.top = "auto";
             } else {
