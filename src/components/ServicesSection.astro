@@ -97,7 +97,7 @@ const services: Service[] = [
     img2: "/img/gallery/compressed/sword.webp",
     img3: "/img/gallery/compressed/dagger.webp",
   },
-  {filler: true,},
+  { filler: true },
   {
     icon: "",
     title: "Other Services",
@@ -106,7 +106,7 @@ const services: Service[] = [
     price: "???",
     duration: "",
   },
-  {filler: true},
+  { filler: true },
 ];
 
 const sectionData: HeadingService = {
@@ -114,11 +114,44 @@ const sectionData: HeadingService = {
   description:
     "Discover my range of professional art services. All comission services include commercial rights and high-resolution files. No NSFW. Prices can be lower or higher if we agree on a particularly simple or complex piece.",
 };
+
+// Crear el marcado JSON-LD para Google Rich Snippets
+const schemaMarkup = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: services
+    .filter((service) => !service.filler)
+    .map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        offers: {
+          "@type": "Offer",
+          price: service.price.replace(/[~$]/g, "").split("–")[0].trim(),
+          priceCurrency: "USD",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            valueAddedTaxIncluded: false,
+            minPrice: service.price.replace(/[~$]/g, "").split("–")[0].trim(),
+            maxPrice: service.price.includes("–")
+              ? service.price.replace(/[~$]/g, "").split("–")[1].trim()
+              : undefined,
+          },
+        },
+        image: [service.img1, service.img2, service.img3].filter(Boolean),
+      },
+    })),
+};
 ---
 
 <div
   class="section h-screen overflow-y-auto py-8 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schemaMarkup)} />
+  
   <div class="container mx-auto px-4">
     <div class="text-center mb-12">
       <h2
