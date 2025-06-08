@@ -8,8 +8,8 @@ const blog = defineCollection({
     title: z.string(),
     date: z.string(),
     author: z.string(),
-    authorImage: z.string(),
-    authorBio: z.string(),
+    authorImage: z.string().optional(),
+    authorBio: z.string().optional(),
     authorSocial: z.object({
       instagram: z.string().optional(),
       twitter: z.string().optional(),
@@ -20,8 +20,7 @@ const blog = defineCollection({
     imageAlt: z.string(),
     imageCaption: z.string().optional(),
     description: z.string(),
-    metaDescription: z.string().optional(),
-    relatedPosts: z.array(z.string()).optional(),
+    metaDescription: z.string().optional()
   })
 });
 

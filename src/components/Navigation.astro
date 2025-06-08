@@ -2,15 +2,17 @@
 interface MenuItem {
   name: string;
   icon: string;
-  slide: number;
+  slide?: number;  // Optional slide number
+  link: string;    // URL - now required for all items
 }
 
 const menuItems: MenuItem[] = [
-  { name: 'Home', icon: 'fa-home', slide: 0 },
-  { name: 'Gallery', icon: 'fa-camera', slide: 1 },
-  { name: 'Profile', icon: 'fa-user', slide: 2 },
-  { name: 'Services', icon: 'fa-gear', slide: 3 },
-  { name: 'Contact', icon: 'fa-envelope', slide: 4 },
+  { name: 'Home', icon: 'fa-home', slide: 0, link: '/' },
+  { name: 'Gallery', icon: 'fa-camera', slide: 1, link: '/#gallery' },
+  { name: 'Profile', icon: 'fa-user', slide: 2, link: '/#profile' },
+  { name: 'Services', icon: 'fa-gear', slide: 3, link: '/#services' },
+  { name: 'Contact', icon: 'fa-envelope', slide: 4, link: '/#contact' },
+  //{ name: 'Blog', icon: 'fa-blog', link: '/blogs' },
 ];
 ---
 
@@ -18,9 +20,23 @@ const menuItems: MenuItem[] = [
   <ul class="flex flex-row gap-2">
     {menuItems.map((item, index) => (
       <li
-        class="menu-item py-2 px-4 flex flex-row items-center gap-1 cursor-pointer"
-        x-bind:class={`{ 'text-color-accent text-highlight': activeSlide === ${item.slide} }`}
-        x-on:click={`goToSlide(${item.slide})`}
+        class={`menu-item py-2 px-4 flex flex-row items-center gap-1 cursor-pointer ${
+          item.link && Astro.url.pathname.startsWith(item.link) ? 'text-color-accent text-highlight' : ''
+        }`}
+        data-slide={item.slide}
+        data-href={item.link}
+        x-bind:class="{ 'text-color-accent text-highlight': $el.dataset.slide !== undefined && typeof window.activeSlide !== 'undefined' && window.activeSlide === parseInt($el.dataset.slide) }"
+        @click="
+          if (window.location.pathname === $el.dataset.href.split('#')[0] && $el.dataset.slide !== undefined) {
+            if (typeof window.navigateToSlide === 'function') {
+              window.navigateToSlide(parseInt($el.dataset.slide));
+            } else {
+              console.error('Slide navigation function not available');
+            }
+          } else {
+            window.location.href = $el.dataset.href;
+          }
+        "
       >
         <div class="menu-decoration"></div>
         <!-- <i class={`fas ${item.icon} text-lg`}></i> -->
@@ -29,3 +45,33 @@ const menuItems: MenuItem[] = [
     ))}
   </ul>
 </nav>
+
+<script>
+  // This script runs when the page loads to check for hash fragments
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionsMap = {
+      '': 0,
+      'gallery': 1,
+      'profile': 2,
+      'services': 3,
+      'contact': 4
+    };
+    
+    const page = window.location.pathname;
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    
+    if (sectionsMap[hash] !== undefined && page === '/') {
+      const slideIndex = sectionsMap[hash];
+      console.log(`Attempting navigation to slide: ${slideIndex} for hash: ${hash}`);
+      
+      // Wait for Alpine to initialize and expose the navigation function
+      setTimeout(() => {
+        if (typeof window.navigateToSlide === 'function') {
+          window.navigateToSlide(slideIndex);
+        } else {
+          console.warn("Slide navigation function not available yet");
+        }
+      }, 500);
+    }
+  });
+</script>

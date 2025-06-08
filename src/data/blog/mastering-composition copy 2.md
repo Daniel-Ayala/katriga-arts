@@ -1,5 +1,5 @@
 ---
-slug: "mastering-composition3"
+slug: "mastering-composition"
 title: "Mastering Composition in Photography (test)"
 date: "April 10, 2025"
 author: "Valentino Pamera"

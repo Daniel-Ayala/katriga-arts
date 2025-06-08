@@ -1,6 +1,6 @@
 ---
-slug: "mastering-composition3"
-title: "Mastering Composition in Photography (test)"
+slug: "mastering-composition2"
+title: "Mastering Composition in Photography (test)2"
 date: "April 10, 2025"
 author: "Valentino Pamera"
 authorImage: "/img/banner.webm"

@@ -16,7 +16,7 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
       class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal"
     >
       <span
-        class="bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-300"
+        class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white"
       >
         Photography Insights
       </span>
@@ -24,7 +24,7 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
     <p
       class="text-lg text-neutral-200 max-w-2xl mx-auto font-light mt-4"
     >
-      Explore tips, techniques, and trends in photography to elevate your craft.
+      Some insights about some of my works.
     </p>
   </div>
 
@@ -32,7 +32,7 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {sortedPosts.map((post) => (
       <div
-        class="blog-item bg-neutral-800/50 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-300/20 transition-all duration-300 animate-reveal group"
+        class="blog-item bg-neutral-800/50 rounded-xl overflow-hidden shadow-lg hover:shadow-white/20 transition-all duration-300 animate-reveal group"
         id={`blog-${post.data.id}`}
       >
         <a href={`/blog/${post.data.slug}`}>
@@ -52,7 +52,7 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
           </div>
           <a href={`/blog/${post.data.slug}`}>
             <h3
-              class="text-xl font-semibold text-white group-hover:text-yellow-300 mb-3"
+              class="text-xl font-semibold text-white group-hover:text-white mb-3"
             >
               {post.data.title}
             </h3>
@@ -64,7 +64,7 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
           </p>
           <a
             href={`/blog/${post.data.slug}`}
-            class="inline-flex items-center text-yellow-300 hover:text-yellow-400 font-medium transition-colors"
+            class="inline-flex items-center text-white hover:text-white font-medium transition-colors"
           >
             Read More
             <i class="fas fa-arrow-right ml-2"></i>

@@ -1,36 +1,36 @@
 ---
-import StaticHeader from '../components/StaticHeader.astro';
-import StaticSidebar from '../components/StaticSidebar.astro';
+import Header from "../components/Header.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foliograph - Cinematic Photography Portfolio</title>
+
+    <slot name="head" />
+    <link rel="icon" href="/img/favicon.png" />
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Raleway:wght@200;400&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
       rel="stylesheet"
     />
   </head>
   <body x-data="{ sidebarOpen: false }">
-    <StaticHeader />
-    <StaticSidebar />
-    <main class="md:ms-20">
-      <div class="section h-screen overflow-y-auto py-8 flex flex-col bg-gradient-to-b from-[var(--color-bg)] to-neutral-900 scrollable lg:px-16 xl:px-24">
-        <div class="container mx-auto px-4">
-          <slot />
-        </div>
+    <canvas id="shader-canvas"></canvas>
+    <Header />
+    <Sidebar />
+    <main>
+      <div class="section py-8 h-screen flex flex-col scrollable lg:px-16 xl:px-24">
+        <slot />
       </div>
     </main>
+    <Analytics />
 
-    <script src="/src/scripts/vendor.js"></script>
+    <script src="/src/scripts/shader.js"></script>
+    <script src="/src/scripts/vendors.js"></script>
   </body>
 </html>

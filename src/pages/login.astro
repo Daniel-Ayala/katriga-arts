@@ -1,0 +1,60 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+---
+
+<PageLayout>
+  <!-- Heading -->
+  <div class="relative text-center mb-12">
+    <h2
+      class="relative text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10 animate-reveal"
+    >
+      <span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white"
+      >
+        Login
+      </span>
+    </h2>
+    <p class="text-lg text-neutral-200 max-w-2xl mx-auto font-light mt-4">
+      The password is "password".
+    </p>
+  </div>
+
+  <form
+    action="/api/login"
+    method="POST"
+    class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg"
+    id="login-form"
+  >
+    <input
+      type="password"
+      name="password"
+      placeholder="Enter password"
+      class="w-full p-3 mb-4 border rounded focus:outline-none focus:ring-2"
+      required
+    />
+
+    <button type="submit" class="w-full p-3"> Login </button>
+  </form>
+</PageLayout>
+
+<script>
+  // Add any client-side JavaScript if needed
+
+  async function submitLoginForm(event) {
+    event.preventDefault();
+    const password = event.target.password.value;
+    const contents = JSON.stringify({ password });
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: contents,
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+  document
+    .getElementById("login-form")
+    .addEventListener("submit", submitLoginForm);
+</script>

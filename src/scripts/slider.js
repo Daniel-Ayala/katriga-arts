@@ -1,5 +1,8 @@
 import { onScroll, animate, stagger } from "animejs";
 
+window.navigateToSlide = null;
+window.activeSlide = 0;
+
 document.addEventListener("alpine:init", () => {
   if (typeof window.Splide === "undefined") {
     console.error("Splide is not defined. Ensure vendors.js is loaded.");
@@ -18,6 +21,14 @@ document.addEventListener("alpine:init", () => {
     },
 
     init() {
+      // Expose the goToSlide function globally
+      window.navigateToSlide = (index) => this.goToSlide(index);
+
+      // Update global active slide when it changes
+      this.$watch("activeSlide", (value) => {
+        window.activeSlide = value;
+      });
+
       this.$nextTick(() => {
         const self = this;
         console.log("Initializing Splide slider");
@@ -255,6 +266,14 @@ document.addEventListener("alpine:init", () => {
     },
 
     goToSlide(index) {
+      const indexToHashMap = {
+        0: "",
+        1: "#gallery",
+        2: "#about",
+        3: "#services",
+        4: "#contact",
+      };
+
       console.log("goToSlide called with index:", index);
       if (!this.splide) {
         console.error("Splide instance not initialized");
@@ -272,6 +291,9 @@ document.addEventListener("alpine:init", () => {
       }
       this.splide.go(index);
       this.activeSlide = index;
+      // Update the URL hash
+      window.location.hash = indexToHashMap[index] || "";
+
       console.log(
         "Navigated to slide:",
         index,
