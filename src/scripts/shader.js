@@ -1,8 +1,13 @@
 function renderShader() {
   // Initialize WebGL
+  // Initialize WebGL
   const canvas = document.getElementById("shader-canvas");
   const gl =
-    canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    canvas.getContext("webgl", {
+      preserveDrawingBuffer: true,
+      antialias: false,
+      powerPreference: "high-performance",
+    }) || canvas.getContext("experimental-webgl");
 
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -15,9 +20,20 @@ function renderShader() {
 
   // Resize canvas to fill the screen
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    gl.viewport(0, 0, canvas.width, canvas.height);
+    const pixelRatio = window.devicePixelRatio || 1;
+    const displayWidth = Math.floor(window.innerWidth * pixelRatio);
+    const displayHeight = Math.floor(window.innerHeight * pixelRatio);
+
+    // Set display size (CSS pixels)
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    // Set actual pixel size of canvas
+    canvas.width = displayWidth;
+    canvas.height = displayHeight;
+
+    // Update WebGL viewport
+    gl.viewport(0, 0, displayWidth, displayHeight);
   }
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
@@ -32,7 +48,7 @@ function renderShader() {
 
   // Fragment shader - replace this with your own shader code
   const fragmentShaderSource = `
-precision mediump float;
+precision highp float; // Change from mediump to highp for mobile
 uniform vec2 u_resolution;
 uniform float u_time;
 
@@ -233,6 +249,7 @@ void main() {
     time *= 0.001; // Convert to seconds
 
     // Clear the canvas
+    gl.clear(gl.COLOR_BUFFER_BIT);
     gl.clearColor(0, 0, 0, 1);
 
     // Use our program
