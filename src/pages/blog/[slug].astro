@@ -1,36 +1,20 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import AuthorBio from '../../components/AuthorBio.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
-  
+  console.log('Blog entries:', blogEntries);
   return blogEntries.map(entry => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.data.slug },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
-
-// Get related posts if specified
-let relatedPosts = [];
-if (entry.data.relatedPosts?.length) {
-  relatedPosts = await Promise.all(
-    entry.data.relatedPosts.map(async (slug) => {
-      const post = await getEntry('blog', slug);
-      return {
-        id: post.data.id,
-        title: post.data.title,
-        slug: post.slug,
-        imageSrc: post.data.image
-      };
-    })
-  );
-}
+const { Content } = await render(entry);
 
 // Author data formatted for AuthorBio component
 const author = {
@@ -85,9 +69,5 @@ const author = {
       <AuthorBio author={author} />
     </footer>
 
-    <!-- Related Posts -->
-    {relatedPosts.length > 0 && (
-      <RelatedPosts posts={relatedPosts} currentSlug={entry.slug} />
-    )}
   </article>
 </PageLayout>
