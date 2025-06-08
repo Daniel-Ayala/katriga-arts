@@ -1,6 +1,12 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { blogItems, type BlogItem } from '../data/blogs';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts and sort by date (newest first)
+const allBlogPosts = await getCollection('blog');
+const sortedPosts = allBlogPosts.sort((a, b) => {
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
 ---
 
 <PageLayout>
@@ -24,15 +30,15 @@ import { blogItems, type BlogItem } from '../data/blogs';
 
   <!-- Blogs Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {blogItems.map((blog) => (
+    {sortedPosts.map((post) => (
       <div
         class="blog-item bg-neutral-800/50 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-300/20 transition-all duration-300 animate-reveal group"
-        id={`blog-${blog.id}`}
+        id={`blog-${post.data.id}`}
       >
-        <a href={`/blog/${blog.slug}`}>
+        <a href={`/blog/${post.data.slug}`}>
           <img
-            src={blog.imageSrc}
-            alt={blog.imageAlt}
+            src={post.data.image}
+            alt={post.data.imageAlt}
             class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
@@ -42,22 +48,22 @@ import { blogItems, type BlogItem } from '../data/blogs';
             class="flex items-center text-neutral-400 text-sm mb-2"
           >
             <i class="fas fa-calendar-alt mr-2"></i>
-            <span>{blog.date}</span>
+            <span>{post.data.date}</span>
           </div>
-          <a href={`/blog/${blog.slug}`}>
+          <a href={`/blog/${post.data.slug}`}>
             <h3
               class="text-xl font-semibold text-white group-hover:text-yellow-300 mb-3"
             >
-              {blog.title}
+              {post.data.title}
             </h3>
           </a>
           <p
             class="text-neutral-200 text-base mb-4 line-clamp-3"
           >
-            {blog.description}
+            {post.data.description}
           </p>
           <a
-            href={`/blog/${blog.slug}`}
+            href={`/blog/${post.data.slug}`}
             class="inline-flex items-center text-yellow-300 hover:text-yellow-400 font-medium transition-colors"
           >
             Read More
@@ -66,17 +72,5 @@ import { blogItems, type BlogItem } from '../data/blogs';
         </div>
       </div>
     ))}
-  </div>
-
-  <!-- Load More -->
-  <div class="container mx-auto px-4 text-center mt-12">
-    <button
-      class="relative bg-transparent border-2 border-yellow-300 text-yellow-300 px-8 py-3 rounded-md text-lg font-medium hover:bg-yellow-300 hover:text-black transition-all duration-300 overflow-hidden group"
-    >
-      <span class="relative z-10">Load More</span>
-      <span
-        class="absolute inset-0 bg-yellow-300 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
-      ></span>
-    </button>
   </div>
 </PageLayout>
