@@ -28,12 +28,13 @@ import PageLayout from "../layouts/PageLayout.astro";
     <input
       type="password"
       name="password"
+      id="password"
       placeholder="Enter password"
       class="w-full p-3 mb-4 border rounded focus:outline-none focus:ring-2"
       required
     />
 
-    <button type="submit" class="w-full p-3"> Login </button>
+    <button type="submit" class="w-full p-3 text-lg"> Login </button>
   </form>
 </PageLayout>
 
@@ -52,7 +53,17 @@ import PageLayout from "../layouts/PageLayout.astro";
       body: contents,
     });
     const data = await response.json();
-    console.log(data);
+    if (data.success) {
+      // set cookie
+      document.cookie = `token=${data.token}; path=/; max-age=3600; secure; SameSite=Strict`;
+      console.log("storing token in cookie:", data.token);
+      // set session storage
+      sessionStorage.setItem("loggedIn", "true");
+      // redirect to home page
+      window.location.href = "/";
+    } else {
+      window.alert("Login failed: " + data.message);
+    }
   }
   document
     .getElementById("login-form")

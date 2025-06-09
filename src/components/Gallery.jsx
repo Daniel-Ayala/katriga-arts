@@ -48,6 +48,7 @@ const Gallery = ({
   const [isLoading, setIsLoading] = useState(false);
   const [buttonState, setButtonState] = useState(buttonText);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [showAddButton, setShowAddButton] = useState(false);
 
   // Create a ref for the masonry grid
   const masonryRef = useRef(null);
@@ -71,6 +72,30 @@ const Gallery = ({
         masonryInstanceRef.current.destroy();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="));
+      if (token) {
+        console.log("Token found in cookies:", token);
+        const tokenValue = token.split("=")[1];
+        const response = await fetch("/api/verify-token", {
+          method: "POST",
+          body: JSON.stringify({ token: tokenValue }),
+          headers: { "Content-Type": "application/json" },
+        });
+        const { isValid } = await response.json();
+        setShowAddButton(isValid);
+      } else {
+        console.log("No token found in cookies.");
+        setShowAddButton(false);
+      }
+    };
+
+    checkToken();
   }, []);
 
   // Initialize GLightbox
@@ -196,6 +221,18 @@ const Gallery = ({
         <p className="text-lg text-neutral-200 max-w-2xl mx-auto font-light">
           {subtitle}
         </p>
+
+        {/* Add more button */}
+        {showAddButton && (
+          <a href="/addPic">
+            <button
+              id="addMore"
+              className="mt-6 text-white px-4 py-3 rounded-md transition-colors text-lg"
+            >
+              <i class="fas fa-square-plus mr-3"></i>Add New Item
+            </button>
+          </a>
+        )}
 
         {/* Category Filters */}
         {categories.length > 0 && (

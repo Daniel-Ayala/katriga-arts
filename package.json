@@ -21,6 +21,7 @@
     "animejs": "^4.0.2",
     "astro": "^5.7.8",
     "bcrypt": "^6.0.0",
+    "easymde": "^2.20.0",
     "glightbox": "^3.3.1",
     "imagesloaded": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
