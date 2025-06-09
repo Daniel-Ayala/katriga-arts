@@ -367,6 +367,30 @@ h4 {
 .tag{
   background-color: rgba(255,255,255,0.1);
 }
+#blogInputs{
+  overflow:hidden;
+  transition: all 0.3s;
+}
+.closed{
+  height: 0px;
+}
+.open {
+  height: calc-size(auto, size);
+}
+#blogCheckboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+}
 
 @media screen and (max-width: 767px) {
   #frame {

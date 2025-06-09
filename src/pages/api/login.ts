@@ -5,9 +5,7 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
-// Store this hash in a secure place or database
-const ADMIN_PASSWORD_HASH =
-  "$2b$10$1HgsJUG0kPPXI75mvzgdEOyp7yj4nKHy41fDgV4.4VpAIAVA1SEXG"; // pre-generated with hashPassword()
+const ADMIN_PASSWORD_HASH = import.meta.env.ADMIN_PASSWORD_HASH;
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
