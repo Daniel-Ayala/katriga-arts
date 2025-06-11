@@ -269,7 +269,7 @@ document.addEventListener("alpine:init", () => {
       const indexToHashMap = {
         0: "",
         1: "#gallery",
-        2: "#about",
+        2: "#profile",
         3: "#services",
         4: "#contact",
       };

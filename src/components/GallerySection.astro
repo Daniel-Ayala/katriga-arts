@@ -1,7 +1,7 @@
 ---
 import Gallery from "./Gallery.jsx";
 import Copyright from "./Copyright.astro";
-import { items, allCategories } from "../pages/api/gallery.ts";
+import { items, getAllCategories } from "../pages/api/gallery.ts";
 import '../styles/gallery.css';
 
 export function getGalleryItems(page = 1, pageSize = 10, categories = []) {
@@ -32,11 +32,12 @@ export function getGalleryItems(page = 1, pageSize = 10, categories = []) {
   };
 }
 
-allCategories.sort();
+getAllCategories().sort();
 
 // Data section
 const pageSize = 20;
 let initialItems = getGalleryItems(1, pageSize).items;
+// print after serialization
 const apiUrl = '/api/gallery';
 ---
 
@@ -47,7 +48,7 @@ const apiUrl = '/api/gallery';
   initialItems={initialItems}
   pageSize={pageSize}
   apiUrl={apiUrl}
-  categories={allCategories}
+  categories={getAllCategories()}
 />
 
 <Copyright />

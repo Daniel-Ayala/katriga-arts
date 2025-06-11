@@ -9,6 +9,7 @@ export default function GalleryItem({
   title,
   description,
   category,
+  priority,
 }) {
   const itemRef = useRef(null);
 

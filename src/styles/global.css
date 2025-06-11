@@ -371,10 +371,10 @@ h4 {
   overflow:hidden;
   transition: all 0.3s;
 }
-.closed{
+.closed-accordion{
   height: 0px;
 }
-.open {
+.open-accordion{
   height: calc-size(auto, size);
 }
 #blogCheckboxContainer {
@@ -426,6 +426,13 @@ h4 {
 .splide__pagination__page.is-active {
   background-color: var(--color-accent);
   transform: scale(1.2);
+}
+.gslide-description {
+  background: black !important;
+  color: white !important;
+}
+.gslide-title {
+  color: white !important;
 }
 /* Navigation arrows */
 .splide__arrow {

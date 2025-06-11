@@ -8,11 +8,13 @@ import "glightbox/dist/css/glightbox.min.css";
 
 // TypeScript interfaces for props
 export const GalleryItemType = {
+  id: String,
   src: String,
   alt: String,
   title: String,
   description: String,
   category: String,
+  priority: Number,
 };
 
 function animateItems() {
@@ -267,6 +269,7 @@ const Gallery = ({
               <div
                 key={`${item.src}-${index}`}
                 className="gallery-item-wrapper w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2"
+                data-priority={item.priority}
               >
                 <GalleryItem {...item} />
               </div>

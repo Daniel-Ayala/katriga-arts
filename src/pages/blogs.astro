@@ -1,15 +1,88 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { getCollection } from 'astro:content';
+import { entries } from './api/blog-entries';
 
 // Get all blog posts and sort by date (newest first)
-const allBlogPosts = await getCollection('blog');
-const sortedPosts = allBlogPosts.sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+const sortedEntries = entries.sort((a, b) => {
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
 });
+
+// Generate structured data for the blog listing
+const blogStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Katriga Arts Blog",
+  "description": "Insights about my art and creative process",
+  "url": "https://katriga.art/blogs/",
+  "author": {
+    "@type": "Person",
+    "name": "Katriga",
+    "url": "https://katriga.art"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Katriga Arts",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://katriga.art/img/logo.png"
+    }
+  },
+  "blogPost": sortedEntries.map(entry => ({
+    "@type": "BlogPosting",
+    "headline": entry.title,
+    "description": entry.description,
+    "image": entry.image,
+    "datePublished": new Date(entry.date).toISOString(),
+    "url": `https://katriga.art/blog/${entry.slug}`,
+    "author": {
+      "@type": "Person",
+      "name": "Katriga"
+    }
+  }))
+};
 ---
 
 <PageLayout>
+  <Fragment slot="head">
+    <title>Katriga Arts - insights about my works - My Blog</title>
+    <meta name="title" content="Katriga Arts - insights about my works - My Blog" />
+    <meta
+      name="description"
+      content="Discover the stories behind my artwork, creative process insights, and personal reflections on digital art. Join me on my artistic journey through detailed posts about my illustrations and creative inspirations."
+    />
+
+    <meta name="keywords" content="digital art blog, creative process, art insights, illustration stories, digital painting, artist journey, creative inspiration, art tutorials, katriga arts" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://katriga.art/blogs/" />
+    <meta property="og:title" content="Art Insights Blog - Katriga Arts | Creative Process & Stories" />
+    <meta
+      property="og:description"
+      content="Discover the stories behind my artwork, creative process insights, and personal reflections on digital art. Join me on my artistic journey."
+    />
+    <meta property="og:image" content="https://katriga.art/img/banner.webp" />
+    <meta property="og:site_name" content="Katriga Arts" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://katriga.art/blogs/" />
+    <meta property="twitter:title" content="Art Insights Blog - Katriga Arts | Creative Process & Stories" />
+    <meta
+      property="twitter:description"
+      content="Discover the stories behind my artwork, creative process insights, and personal reflections on digital art."
+    />
+    <meta property="twitter:image" content="https://katriga.art/img/banner.webp" />
+    <meta property="twitter:creator" content="@katriga" />
+
+    <link rel="canonical" href="https://katriga.art/blogs/" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {JSON.stringify(blogStructuredData)}
+    </script>
+  </Fragment>
+
   <!-- Heading -->
   <div class="relative text-center mb-12">
     <h2
@@ -18,27 +91,27 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
       <span
         class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white"
       >
-        Photography Insights
+        Art Insights Blog
       </span>
     </h2>
     <p
       class="text-lg text-neutral-200 max-w-2xl mx-auto font-light mt-4"
     >
-      Some insights about some of my works.
+      Discover the stories behind my artwork, creative process insights, and personal reflections on my digital art journey.
     </p>
   </div>
 
   <!-- Blogs Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {sortedPosts.map((post) => (
+    {sortedEntries.map((entry) => (
       <div
         class="blog-item bg-neutral-800/50 rounded-xl overflow-hidden shadow-lg hover:shadow-white/20 transition-all duration-300 animate-reveal group"
-        id={`blog-${post.data.id}`}
+        id={`blog-${entry.id}`}
       >
-        <a href={`/blog/${post.data.slug}`}>
+        <a href={`/blog/${entry.slug}`}>
           <img
-            src={post.data.image}
-            alt={post.data.imageAlt}
+            src={entry.image}
+            alt={entry.imageAlt}
             class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
@@ -48,22 +121,22 @@ const sortedPosts = allBlogPosts.sort((a, b) => {
             class="flex items-center text-neutral-400 text-sm mb-2"
           >
             <i class="fas fa-calendar-alt mr-2"></i>
-            <span>{post.data.date}</span>
+            <span>{entry.date}</span>
           </div>
-          <a href={`/blog/${post.data.slug}`}>
+          <a href={`/blog/${entry.slug}`}>
             <h3
               class="text-xl font-semibold text-white group-hover:text-white mb-3"
             >
-              {post.data.title}
+              {entry.title}
             </h3>
           </a>
           <p
             class="text-neutral-200 text-base mb-4 line-clamp-3"
           >
-            {post.data.description}
+            {entry.description}
           </p>
           <a
-            href={`/blog/${post.data.slug}`}
+            href={`/blog/${entry.slug}`}
             class="inline-flex items-center text-white hover:text-white font-medium transition-colors"
           >
             Read More

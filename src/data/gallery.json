@@ -641,6 +641,15 @@
     ]
   },
   {
+    "src": "/img/gallery/compressed/food3.webp",
+    "alt": "food3",
+    "title": "",
+    "description": "",
+    "category": [
+      "asset"
+    ]
+  },
+  {
     "src": "/img/gallery/compressed/tiger2.webp",
     "alt": "tiger2",
     "title": "",
@@ -662,8 +671,8 @@
     ]
   },
   {
-    "src": "/img/gallery/compressed/samus aran small(er).webp",
-    "alt": "samus aran small(er)",
+    "src": "/img/gallery/compressed/samus aran small er.webp",
+    "alt": "samus aran smaller",
     "title": "",
     "description": "",
     "category": [

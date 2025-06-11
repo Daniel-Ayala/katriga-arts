@@ -1,4 +1,24 @@
+# Reglas tipicas para WordPress
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /src/
+
+# Block known bad bots and scrapers
+User-agent: AhrefsBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: SemrushBot
+User-agent: MagpieRSS
+User-agent: Sogou
+User-agent: YandexBot
+User-agent: BLEXBot
+User-agent: LinkpadBot
+Disallow: /
+
+# Crawl delay for heavy crawlers
+User-agent: Bingbot
+Crawl-delay: 1
 
 Sitemap: https://katriga.art/sitemap.xml

@@ -1,10 +1,51 @@
 ---
 import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
-import Analytics from '@vercel/analytics/astro'
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 import "@splidejs/splide/dist/css/splide.min.css";
 import "glightbox/dist/css/glightbox.min.css";
+
+// Accept props for dynamic metadata
+const {
+  title = "Katriga Arts - Commission your imagination into reality",
+  description = "Affordable art commissions with a fine art twist. I will turn your dream scenes, characters, avatars, or pretty much anything you can imagine into high quality illustrations",
+  ogImage = "https://katriga.art/img/banner.webp",
+  canonicalUrl = "https://katriga.art/",
+  structuredData = null,
+} = Astro.props;
+
+// Default structured data for homepage
+const defaultStructuredData = {
+  "@context": "https://schema.org",
+  "@type": ["Person", "Artist"],
+  name: "Katriga",
+  alternateName: "Katriga Arts",
+  description:
+    "Digital artist specializing in character illustrations, fantasy art, and custom commissions",
+  url: "https://katriga.art",
+  image: "https://katriga.art/img/banner.webp",
+  sameAs: [
+    "https://twitter.com/katriga",
+    "https://instagram.com/katriga_arts",
+    // Add your social media URLs
+  ],
+  jobTitle: "Digital Artist",
+  knowsAbout: [
+    "Digital Art",
+    "Character Design",
+    "Fantasy Illustration",
+    "Commission Art",
+    "Digital Painting",
+  ],
+  offers: {
+    "@type": "Offer",
+    name: "Art Commission Services",
+    description:
+      "Custom digital art commissions including characters, scenes, and fantasy illustrations",
+    category: "Art & Design Services",
+  },
+};
 ---
 
 <!doctype html>
@@ -13,45 +54,66 @@ import "glightbox/dist/css/glightbox.min.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Primary Meta Tags -->
-    <title>Katriga Arts - Commission your imagination into reality</title>
-    <meta name="title" content="Katriga Arts - Commission your imagination into reality" />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Enhanced SEO Meta Tags -->
     <meta
-      name="description"
-      content="Affordable art commissions with a fine art twist. I will turn your dream scenes, characters, avatars, or pretty much anything you can imagine into high quality illustrations"
+      name="keywords"
+      content="digital art, art commissions, character design, fantasy art, illustration, custom artwork, digital painting, portrait commissions, katriga arts"
     />
+    <meta name="author" content="Katriga" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
 
     <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://katriga.art/" />
-    <meta property="og:title" content="Katriga Arts - Commission your imagination into reality" />
-    <meta
-      property="og:description"
-      content="Affordable art commissions with a fine art twist. I will turn your dream scenes, characters, avatars, or pretty much anything you can imagine into high quality illustrations"
-    />
-    <meta property="og:image" content="https://katriga.art/img/banner.webp" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="628" />
+    <meta property="og:site_name" content="Katriga Arts" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://katriga.art/" />
-    <meta property="twitter:title" content="Katriga Arts - Commission your imagination into reality" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+    <meta property="twitter:creator" content="@katriga" />
+    <meta property="twitter:site" content="@katriga" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
-      property="twitter:description"
-      content="Affordable art commissions with a fine art twist. I will turn your dream scenes, characters, avatars, or pretty much anything you can imagine into high quality illustrations"
-    />
-    <meta
-      property="twitter:image"
-      content="https://katriga.art/img/banner.webp"
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
     />
 
-    <link rel="canonical" href="https://katriga.art/" />
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="shortcut icon" type="image/png" href="/favicon.png" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
       rel="stylesheet"
+      crossorigin="anonymous"
     />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {JSON.stringify(structuredData || defaultStructuredData)}
+    </script>
+
     <style>
-      
       .content {
         position: relative;
         z-index: 1;
@@ -74,7 +136,7 @@ import "glightbox/dist/css/glightbox.min.css";
       </div>
       <div id="scroll-accumulator" class="scroll-accumulator"></div>
     </main>
-    <Analytics/>
+    <Analytics />
 
     <script src="/src/scripts/vendors.js"></script>
     <script src="/src/scripts/slider.js"></script>

@@ -1,33 +1,13 @@
-export interface Author {
-  name: string;
-  image: string;
-  bio: string;
-  social: {
-    instagram?: string;
-    twitter?: string;
-    linkedin?: string;
-    website?: string;
-  };
-}
-
 export interface BlogItem {
   id: number;
   title: string;
   date: string;
   imageSrc: string;
   imageAlt: string;
-  imageCaption?: string;
   description: string;
   slug: string;
   content?: string;
-  metaDescription?: string;
   author?: Author;
-  relatedPosts?: {
-    id: number;
-    title: string;
-    slug: string;
-    imageSrc: string;
-  }[];
 }
 
 export const blogItems: BlogItem[] = [
