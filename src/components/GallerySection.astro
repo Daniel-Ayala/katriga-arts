@@ -42,6 +42,8 @@ const apiUrl = new URL (
   Astro.url
 ).toString();
 
+console.log("API URL:", apiUrl);
+
 let initialItems = await fetch(apiUrl,
   {
     method: "POST",
