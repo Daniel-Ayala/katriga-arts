@@ -6,6 +6,7 @@ import { getEntryBySlug, entriesWithoutContent } from '../api/blog-entries';
 import { marked } from 'marked';
 
 export async function getStaticPaths() {
+  console.log('Entries without content:', entriesWithoutContent);
   console.log(entriesWithoutContent.map(entry => ({
     params: { slug: entry.slug }
   })));

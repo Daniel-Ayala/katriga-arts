@@ -49,10 +49,10 @@ export const refreshEntries = async () => {
     })
   ).rows;
   entries = setEntriesDate(entries);
-  console.log("Entries refreshed successfully.");
+  console.log("Entries refreshed successfully:", entries);
 };
 
-/*
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     // Parse the JSON body
@@ -84,4 +84,4 @@ export const POST: APIRoute = async ({ request }) => {
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
-};*/
+};
