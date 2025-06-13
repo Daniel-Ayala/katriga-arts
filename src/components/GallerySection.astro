@@ -37,9 +37,28 @@ getAllCategories().sort();
 
 // Data section
 const pageSize = 20;
-let initialItems = getGalleryItems(1, pageSize).items;
-// print after serialization
-const apiUrl = "/api/gallery";
+const apiUrl = Astro.url.origin+"/api/gallery";
+
+let initialItems = await fetch(apiUrl,
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: 1,
+      pageSize: pageSize
+    }),
+  }
+)
+  .then((response) => response.json())
+  .then((data) => {
+    return data.items;
+  })
+  .catch((error) => {
+    console.error("Error fetching initial items:", error);
+    return [];
+  });
 ---
 
 <Gallery

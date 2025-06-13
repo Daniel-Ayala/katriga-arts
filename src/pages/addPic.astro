@@ -492,4 +492,8 @@ const sortedItems = items.sort((a, b) => (a.priority || 0) - (b.priority || 0));
     background-color: #1f2937;
     color: #f3f4f6;
   }
+  /* White cursor for EasyMDE */
+  :global(.EasyMDEContainer .CodeMirror-cursor) {
+    border-left: 1px solid #ffffff !important;
+  }
 </style>

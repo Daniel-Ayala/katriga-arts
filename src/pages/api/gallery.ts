@@ -52,7 +52,6 @@ export const refreshItems = async () => {
     item.id = `photo${index + 1}`; // Start IDs from 1
     item.category = item.categories.split(",").map((cat) => cat.trim()); // Ensure category is an array
   });
-  console.log("Items refreshed successfully:", items);
 };
 
 export const GET: APIRoute = async ({ request }) => {
