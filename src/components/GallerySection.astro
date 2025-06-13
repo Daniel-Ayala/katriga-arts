@@ -37,7 +37,10 @@ getAllCategories().sort();
 
 // Data section
 const pageSize = 20;
-const apiUrl = Astro.url.origin+"/api/gallery";
+const apiUrl = new URL (
+  "/api/gallery",
+  Astro.url
+).toString();
 
 let initialItems = await fetch(apiUrl,
   {
