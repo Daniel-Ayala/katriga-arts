@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import PageLayout from '../layouts/PageLayout.astro';
 import { entries } from './api/blog-entries';
 
@@ -6,40 +8,6 @@ import { entries } from './api/blog-entries';
 const sortedEntries = entries.sort((a, b) => {
   return new Date(b.date).getTime() - new Date(a.date).getTime();
 });
-
-// Generate structured data for the blog listing
-const blogStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "Katriga Arts Blog",
-  "description": "Insights about my art and creative process",
-  "url": "https://katriga.art/blogs/",
-  "author": {
-    "@type": "Person",
-    "name": "Katriga",
-    "url": "https://katriga.art"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Katriga Arts",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://katriga.art/img/logo.png"
-    }
-  },
-  "blogPost": sortedEntries.map(entry => ({
-    "@type": "BlogPosting",
-    "headline": entry.title,
-    "description": entry.description,
-    "image": entry.image,
-    "datePublished": new Date(entry.date).toISOString(),
-    "url": `https://katriga.art/blog/${entry.slug}`,
-    "author": {
-      "@type": "Person",
-      "name": "Katriga"
-    }
-  }))
-};
 ---
 
 <PageLayout>
