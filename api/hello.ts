@@ -34,7 +34,7 @@ Hello from Vercel!
   } catch (error) {
     console.error('Error reading directory:', error);
     
-    return new Response(`Error reading directory: ${error.message}\n\nHello from Vercel!`, {
+    return new Response(`Error reading directory: ${error.message}\n\nHello from Vercel!!`, {
       status: 500,
       headers: {
         'Content-Type': 'text/plain',
