@@ -4,13 +4,14 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "node generate-sitemap.cjs && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.5.3",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.1",
     "@astrojs/vercel": "^8.1.4",
     "@libsql/client": "^0.15.9",
     "@splidejs/splide": "^4.1.4",
