@@ -2,12 +2,18 @@
 export const prerender = false;
 
 import PageLayout from '../layouts/PageLayout.astro';
-import { entries } from './api/blog-entries';
 
 // Get all blog posts and sort by date (newest first)
-const sortedEntries = entries.sort((a, b) => {
-  return new Date(b.date).getTime() - new Date(a.date).getTime();
-});
+const apiUrl = new URL('/api/blog-entries', Astro.url).toString();
+
+const sortedEntries = await fetch(apiUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({}),
+})
+  .then((response) => response.json());
 
 console.log('Sorted entries:', sortedEntries);
 ---

@@ -2,20 +2,11 @@
 export const prerender = false;
 
 import PageLayout from '../../layouts/PageLayout.astro';
-import { getEntryBySlug, entriesWithoutContent } from '../api/blog-entries';
+import { getEntryBySlug } from '../api/blog-entries';
 import { marked } from 'marked';
 
-export async function getStaticPaths() {
-  console.log('Entries without content:', entriesWithoutContent);
-  console.log(entriesWithoutContent.map(entry => ({
-    params: { slug: entry.slug }
-  })));
-  return entriesWithoutContent.map(entry => ({
-    params: { slug: entry.slug }
-  }));
-}
+const { slug } = Astro.params;
 
-let { slug } = Astro.params;
 const entry = await getEntryBySlug(slug);
 console.log('Blog entry:', entry);
 console.log(entry.content.length, 'characters of content found for entry:', entry.title);
