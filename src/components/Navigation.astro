@@ -25,7 +25,12 @@ const menuItems: MenuItem[] = [
         }`}
         data-slide={item.slide}
         data-href={item.link}
-        x-bind:class="{ 'text-color-accent text-highlight': $el.dataset.slide !== undefined && typeof window.activeSlide !== 'undefined' && window.activeSlide === parseInt($el.dataset.slide) }"
+        x-bind:class="{ 
+          'text-color-accent text-highlight': 
+            $el.dataset.slide !== undefined && 
+            $store.slider && 
+            $store.slider.activeSlide === parseInt($el.dataset.slide) 
+        }"
         @click="
           if (window.location.pathname === $el.dataset.href.split('#')[0] && $el.dataset.slide !== undefined) {
             if (typeof window.navigateToSlide === 'function') {

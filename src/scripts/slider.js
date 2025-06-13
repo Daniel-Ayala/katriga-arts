@@ -9,10 +9,23 @@ document.addEventListener("alpine:init", () => {
     return;
   }
 
+  // Create a global store for the active slide
+  Alpine.store("slider", {
+    activeSlide: 0,
+    setActiveSlide(index) {
+      this.activeSlide = index;
+      window.activeSlide = index; // Keep backward compatibility
+    },
+  });
+
   window.Alpine.data("slider", () => ({
     sidebarOpen: false,
-    activeSlide: 0,
-    splide: null,
+    get activeSlide() {
+      return this.$store.slider.activeSlide;
+    },
+    set activeSlide(value) {
+      this.$store.slider.setActiveSlide(value);
+    },
 
     isLastSlide() {
       return this.splide && this.splide.Components
@@ -239,19 +252,14 @@ document.addEventListener("alpine:init", () => {
         }
 
         this.splide.on("mounted", () => {
-          console.log(
-            "Splide mounted, initial slide:",
-            this.splide.index,
-            "total slides:",
-            this.splide.length
-          );
-          this.activeSlide = this.splide.index;
-        });
+        console.log("Splide mounted, initial slide:", this.splide.index, "total slides:", this.splide.length);
+        this.activeSlide = this.splide.index;
+      });
 
         this.splide.on("move", (newIndex) => {
-          console.log("Slide moved to:", newIndex);
-          this.activeSlide = newIndex;
-        });
+        console.log("Slide moved to:", newIndex);
+        this.activeSlide = newIndex;
+      });
 
         this.splide.on("active", (slide) => {
           console.log("Active slide index:", slide.index);

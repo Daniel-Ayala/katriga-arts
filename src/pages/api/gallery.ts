@@ -16,7 +16,7 @@ try {
   console.log("Querying items from the database...");
   items = (
     await client.execute({
-      sql: "SELECT src, alt, title, description, categories, priority FROM Pictures ORDER BY priority ASC",
+      sql: "SELECT src, thumbnail, alt, title, description, categories, priority FROM Pictures ORDER BY priority ASC",
     })
   ).rows;
   console.log("Retrieved items from the database:", items.length);
@@ -45,14 +45,14 @@ export const refreshItems = async () => {
   console.log("Refreshing items from the database...");
   items = (
     await client.execute({
-      sql: "SELECT src, alt, title, description, categories, priority FROM Pictures ORDER BY priority ASC",
+      sql: "SELECT src, thumbnail, alt, title, description, categories, priority FROM Pictures ORDER BY priority ASC",
     })
   ).rows;
   items.forEach((item, index) => {
     item.id = `photo${index + 1}`; // Start IDs from 1
     item.category = item.categories.split(",").map((cat) => cat.trim()); // Ensure category is an array
   });
-  console.log("Items refreshed successfully.");
+  console.log("Items refreshed successfully:", items);
 };
 
 export const GET: APIRoute = async ({ request }) => {

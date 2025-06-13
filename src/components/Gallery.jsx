@@ -10,6 +10,7 @@ import "glightbox/dist/css/glightbox.min.css";
 export const GalleryItemType = {
   id: String,
   src: String,
+  thumbnail: String,
   alt: String,
   title: String,
   description: String,
@@ -231,7 +232,7 @@ const Gallery = ({
               id="addMore"
               className="mt-6 text-white px-4 py-3 rounded-md transition-colors text-lg"
             >
-              <i class="fas fa-square-plus mr-3"></i>Add New Item
+              <i className="fas fa-square-plus mr-3"></i>Add New Item
             </button>
           </a>
         )}

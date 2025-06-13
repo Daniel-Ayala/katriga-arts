@@ -5,6 +5,7 @@ import { onScroll, animate } from "animejs";
 export default function GalleryItem({
   id,
   src,
+  thumbnail,
   alt,
   title,
   description,
@@ -23,7 +24,7 @@ export default function GalleryItem({
       className={`glightbox gallery-item relative block overflow-hidden rounded-xl shadow-xl group animate-reveal`}
     >
       <img
-        src={src}
+        src={thumbnail || src}
         alt={alt}
         className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 parallax"
       />
