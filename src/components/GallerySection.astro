@@ -42,8 +42,6 @@ const apiUrl = new URL (
   Astro.url
 ).toString();
 
-console.log("API URL:", apiUrl);
-
 let initialItems = await fetch(apiUrl,
   {
     method: "POST",
@@ -71,7 +69,7 @@ let initialItems = await fetch(apiUrl,
   title="Gallery"
   subtitle="A collection of my works, from fast sketches to more ambitious projects. No AI was used in the creation of any of these."
   buttonText="Load More"
-  initialItems={initialItems}
+  initialItems={[]}
   pageSize={pageSize}
   apiUrl={apiUrl}
   categories={getAllCategories()}

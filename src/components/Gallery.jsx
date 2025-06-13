@@ -52,24 +52,34 @@ const Gallery = ({
   const [buttonState, setButtonState] = useState(buttonText);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [showAddButton, setShowAddButton] = useState(false);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   // Create a ref for the masonry grid
   const masonryRef = useRef(null);
   const masonryInstanceRef = useRef(null);
 
+  // Load initial items on component mount
   useEffect(() => {
-    if (masonryRef.current && items.length > 0) {
-      // Wait for images to load before initializing masonry
-      imagesLoaded(masonryRef.current, () => {
-        masonryInstanceRef.current = new Masonry(masonryRef.current, {
-          itemSelector: ".gallery-item-wrapper",
-          percentPosition: true,
-          transitionDuration: 0,
-        });
-        animateItems();
+    if (!initialLoadComplete) {
+      fetchItems(1).then(() => {
+        console.log("Initial items loaded");
+        console.log("Initializing Masonry layout");
+        console.log("Items length:", items.length);
+        if (masonryRef.current && items.length > -1) {
+          // Wait for images to load before initializing masonry
+          imagesLoaded(masonryRef.current, () => {
+            masonryInstanceRef.current = new Masonry(masonryRef.current, {
+              itemSelector: ".gallery-item-wrapper",
+              percentPosition: true,
+              transitionDuration: 0,
+            });
+            animateItems();
+          });
+        }
       });
+      setInitialLoadComplete(true);
     }
-
+    console.log("Fetched initial items");
     return () => {
       if (masonryInstanceRef.current) {
         masonryInstanceRef.current.destroy();
