@@ -1,14 +1,14 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import HeroSection from '../components/HeroSection.astro';
-import GallerySection from '../components/GallerySection.astro';
-import AboutSection from '../components/AboutSection.astro';
-import ServicesSection from '../components/ServicesSection.astro';
-import TestimonialsSection from '../components/TestimonialsSection.astro';
-import ContactSection from '../components/ContactSection.astro';
+import MainLayout from "../layouts/MainLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import GallerySection from "../components/GallerySection.astro";
+import AboutSection from "../components/AboutSection.astro";
+import ServicesSection from "../components/ServicesSection.astro";
+import TestimonialsSection from "../components/TestimonialsSection.astro";
+import ContactSection from "../components/ContactSection.astro";
 
 // Import services data for structured data
-import servicesData from '../data/services.json';
+import servicesData from "../data/services.json";
 let services = servicesData.services;
 
 const homepageStructuredData = {
@@ -16,47 +16,48 @@ const homepageStructuredData = {
   "@type": ["Person", "Artist"],
   name: "Katriga",
   alternateName: "Katriga Arts",
-  description: "Digital artist specializing in character illustrations, fantasy art, and custom commissions",
+  description:
+    "Digital artist specializing in character illustrations, fantasy art, and custom commissions",
   url: "https://katriga.art",
   image: "https://katriga.art/img/banner.webp",
-  sameAs: [
-    "https://twitter.com/katriga",
-    "https://instagram.com/katriga_arts"
-  ],
+  sameAs: ["https://twitter.com/katriga", "https://instagram.com/katriga_arts"],
   jobTitle: "Digital Artist",
   knowsAbout: [
     "Digital Art",
-    "Character Design", 
+    "Character Design",
     "Fantasy Illustration",
     "Commission Art",
-    "Digital Painting"
+    "Digital Painting",
   ],
-  offers: services
-    .filter(service => !service.filler && service.title !== "Other Services")
-    .map(service => ({
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Product",
-        "name": service.title,
-        "description": service.description,
-        "image": [service.img1, service.img2, service.img3].filter(Boolean),
-        "category": "Art & Design Services",
-        "brand": {
-          "@type": "Brand",
-          "name": "Katriga Arts"
-        }
+  makesOffer: services
+    .filter((service) => !service.filler && service.title !== "Other Services")
+    .map((service) => ({
+      "@type": "Product",
+      name: service.title,
+      description: service.description,
+      image: [service.img1, service.img2, service.img3].filter(Boolean),
+      category: "Art & Design Services",
+      brand: {
+        "@type": "Brand",
+        name: "Katriga Arts",
       },
-      "price": service.price.replace(/[~$]/g, "").split("–")[0].trim(),
-      "priceCurrency": "USD",
-      "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-      "availability": "https://schema.org/InStock",
-      "seller": {
-        "@type": "Person",
-        "name": "Katriga"
-      }
-    }))
+      offers: {
+        "@type": "Offer",
+        price: service.price.replace(/[~$]/g, "").split("–")[0].trim(),
+        priceCurrency: "USD",
+        priceValidUntil: new Date(
+          new Date().setFullYear(new Date().getFullYear() + 1)
+        )
+          .toISOString()
+          .split("T")[0],
+        availability: "https://schema.org/InStock",
+        seller: {
+          "@type": "Person",
+          name: "Katriga",
+        },
+      },
+    })),
 };
-
 ---
 
 <MainLayout structuredData={homepageStructuredData}>
