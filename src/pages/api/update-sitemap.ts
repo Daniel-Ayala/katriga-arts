@@ -29,7 +29,7 @@ export const GET: APIRoute = async ({ request }) => {
     
     // Read dist folder contents if it exists
     let distContents = [];
-    const distPath = path.join(currentDir, 'dist');
+    const distPath = path.join(currentDir, 'dist/server');
     let distExists = false;
     
     try {
