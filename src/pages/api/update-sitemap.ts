@@ -2,6 +2,34 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
+// Recursive function to read directory contents
+function readDirectoryRecursive(fs: any, path: any, dirPath: string, indent = 0): string {
+  let output = '';
+  const indentStr = '  '.repeat(indent);
+  
+  try {
+    const items = fs.readdirSync(dirPath);
+    
+    items.forEach(item => {
+      const itemPath = path.join(dirPath, item);
+      const stats = fs.statSync(itemPath);
+      
+      if (stats.isDirectory()) {
+        output += `${indentStr}📁 ${item}/\n`;
+        // Recursively read subdirectory
+        output += readDirectoryRecursive(fs, path, itemPath, indent + 1);
+      } else {
+        const sizeInfo = ` (${stats.size} bytes)`;
+        output += `${indentStr}📄 ${item}${sizeInfo}\n`;
+      }
+    });
+  } catch (error) {
+    output += `${indentStr}❌ Error reading directory: ${error.message}\n`;
+  }
+  
+  return output;
+}
+
 export const GET: APIRoute = async ({ request }) => {
   console.log("Received request to update sitemap");
   try {
@@ -27,28 +55,19 @@ export const GET: APIRoute = async ({ request }) => {
       };
     });
     
-    // Read dist folder contents if it exists
-    let distContents = [];
-    const distPath = path.join(currentDir, 'dist/server');
+    // Read dist folder contents recursively if it exists
+    const distPath = path.join(currentDir, 'dist');
     let distExists = false;
+    let distContentsRecursive = '';
     
     try {
       if (fs.existsSync(distPath)) {
         distExists = true;
-        const distFiles = fs.readdirSync(distPath);
-        distContents = distFiles.map(file => {
-          const filePath = path.join(distPath, file);
-          const stats = fs.statSync(filePath);
-          return {
-            name: file,
-            type: stats.isDirectory() ? 'DIR' : 'FILE',
-            size: stats.isFile() ? stats.size : null,
-            modified: stats.mtime.toISOString()
-          };
-        });
+        distContentsRecursive = readDirectoryRecursive(fs, path, distPath);
       }
     } catch (distError) {
       console.error("Error reading dist folder:", distError);
+      distContentsRecursive = `❌ Error reading dist folder: ${distError.message}\n`;
     }
     
     // Check for specific files we might need
@@ -77,23 +96,19 @@ export const GET: APIRoute = async ({ request }) => {
     logOutput += `Current Directory: ${currentDir}\n`;
     logOutput += `Total Files: ${files.length}\n\n`;
     
-    logOutput += `Directory Contents:\n`;
-    logOutput += `-------------------\n`;
+    logOutput += `Root Directory Contents:\n`;
+    logOutput += `------------------------\n`;
     fileDetails.forEach(file => {
       const sizeInfo = file.size !== null ? ` (${file.size} bytes)` : '';
       logOutput += `${file.type.padEnd(4)} ${file.name}${sizeInfo}\n`;
     });
     
-    // Add dist folder contents
+    // Add dist folder contents recursively
     if (distExists) {
-      logOutput += `\nDist Folder Contents:\n`;
-      logOutput += `--------------------\n`;
-      logOutput += `Path: ${distPath}\n`;
-      logOutput += `Total items: ${distContents.length}\n\n`;
-      distContents.forEach(file => {
-        const sizeInfo = file.size !== null ? ` (${file.size} bytes)` : '';
-        logOutput += `${file.type.padEnd(4)} ${file.name}${sizeInfo}\n`;
-      });
+      logOutput += `\nDist Folder Contents (Recursive):\n`;
+      logOutput += `=================================\n`;
+      logOutput += `Path: ${distPath}\n\n`;
+      logOutput += distContentsRecursive;
     } else {
       logOutput += `\nDist Folder: NOT FOUND\n`;
       logOutput += `Expected path: ${distPath}\n`;
