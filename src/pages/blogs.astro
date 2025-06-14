@@ -16,6 +16,62 @@ const sortedEntries = await fetch(apiUrl, {
   .then((response) => response.json());
 
 console.log('Sorted entries:', sortedEntries);
+
+const blogStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Art Insights Blog - Katriga Arts",
+  "description": "Discover the stories behind my artwork, creative process insights, and personal reflections on digital art. Join me on my artistic journey through detailed posts about my illustrations and creative inspirations.",
+  "url": "https://katriga.art/blogs/",
+  "author": {
+    "@type": "Person",
+    "name": "Katriga",
+    "url": "https://katriga.art",
+    "sameAs": [
+      "https://twitter.com/katriga",
+      "https://instagram.com/katriga_arts"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Katriga Arts",
+    "url": "https://katriga.art",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://katriga.art/img/banner.webp"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://katriga.art/blogs/"
+  },
+  "blogPost": sortedEntries.map(entry => ({
+    "@type": "BlogPosting",
+    "headline": entry.title,
+    "description": entry.description,
+    "url": `https://katriga.art/blog/${entry.slug}`,
+    "datePublished": new Date(entry.date).toISOString(),
+    "dateModified": new Date(entry.date).toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Katriga"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Katriga Arts"
+    },
+    "image": {
+      "@type": "ImageObject",
+      "url": entry.image || entry.thumbnail,
+      "caption": entry.imageAlt
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://katriga.art/blog/${entry.slug}`
+    }
+  }))
+};
+const jsonLdScript = JSON.stringify(blogStructuredData);
 ---
 
 <PageLayout>
@@ -54,9 +110,7 @@ console.log('Sorted entries:', sortedEntries);
     <link rel="canonical" href="https://katriga.art/blogs/" />
 
     <!-- Structured Data -->
-    <!-- <script type="application/ld+json">
-      {JSON.stringify(blogStructuredData)}
-    </script> -->
+    <script type="application/ld+json" set:html={jsonLdScript}></script>
   </Fragment>
 
   <!-- Heading -->

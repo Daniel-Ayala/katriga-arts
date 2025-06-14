@@ -24,7 +24,7 @@ try {
   console.log("Querying blog entries from the database...");
   entries = (
     await client.execute({
-      sql: "SELECT * FROM BlogEntries ORDER BY date ASC",
+      sql: "SELECT * FROM BlogEntries ORDER BY date DESC",
     })
   ).rows;
   console.log("Retrieved blog entries from the database:", entries.length);

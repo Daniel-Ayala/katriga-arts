@@ -1,26 +1,83 @@
 ---
 export const prerender = false;
 
-import PageLayout from '../../layouts/PageLayout.astro';
-import { getEntryBySlug } from '../api/blog-entries';
-import { marked } from 'marked';
+import PageLayout from "../../layouts/PageLayout.astro";
+import { getEntryBySlug } from "../api/blog-entries";
+import { marked } from "marked";
 
 const { slug } = Astro.params;
 
 const entry = await getEntryBySlug(slug);
-console.log('Blog entry:', entry);
-console.log(entry.content.length, 'characters of content found for entry:', entry.title);
+console.log("Blog entry:", entry);
+console.log(
+  entry.content.length,
+  "characters of content found for entry:",
+  entry.title
+);
 const content = await marked(entry.content);
 
 // Format date for display
-const formattedDate = new Date(entry.date).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
+const formattedDate = new Date(entry.date).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 });
 
 // Create canonical URL
 const canonicalUrl = `https://katriga.art/blog/${entry.slug}`;
+
+// Generate structured data for individual blog post
+const blogPostStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: entry.title,
+  description: entry.description,
+  url: canonicalUrl,
+  datePublished: new Date(entry.date).toISOString(),
+  dateModified: new Date(entry.date).toISOString(),
+  author: {
+    "@type": "Person",
+    name: "Katriga",
+    url: "https://katriga.art",
+    sameAs: [
+      "https://twitter.com/katriga",
+      "https://instagram.com/katriga_arts",
+    ],
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Katriga Arts",
+    url: "https://katriga.art",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://katriga.art/img/banner.webp",
+    },
+  },
+  image: {
+    "@type": "ImageObject",
+    url: entry.image || entry.thumbnail,
+    caption: entry.imageAlt,
+    width: 1200,
+    height: 630,
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalUrl,
+  },
+  isPartOf: {
+    "@type": "Blog",
+    name: "Art Insights Blog - Katriga Arts",
+    url: "https://katriga.art/blogs/",
+  },
+  wordCount: entry.content.length,
+  keywords:
+    "digital art, illustration, creative process, art story, katriga arts",
+  genre: "Art & Design",
+  articleSection: "Art Process",
+};
+
+// Serialize the structured data for consistent formatting
+const jsonLdScript = JSON.stringify(blogPostStructuredData);
 ---
 
 <PageLayout title={entry.title} description={entry.description}>
@@ -28,109 +85,142 @@ const canonicalUrl = `https://katriga.art/blog/${entry.slug}`;
     <title>{entry.title} - Katriga Arts Blog</title>
     <meta name="title" content={`${entry.title} - Katriga Arts Blog`} />
     <meta name="description" content={entry.description} />
+    <meta
+      name="keywords"
+      content={`${entry.title}, digital art, illustration, creative process, art story, katriga arts`}
+    />
+    <meta name="author" content="Katriga" />
+    <meta
+      name="article:published_time"
+      content={new Date(entry.date).toISOString()}
+    />
+    <meta
+      name="article:modified_time"
+      content={new Date(entry.date).toISOString()}
+    />
+    <meta name="article:author" content="Katriga" />
+    <meta name="article:section" content="Art Process" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:title" content={`${entry.title} - Katriga Arts Blog`} />
+    <meta property="og:title" content={entry.title} />
     <meta property="og:description" content={entry.description} />
-    <meta property="og:image" content={entry.thumbnail} />
+    <meta property="og:image" content={entry.image || entry.thumbnail} />
+    <meta property="og:image:alt" content={entry.imageAlt} />
     <meta property="og:site_name" content="Katriga Arts" />
-    
-    <!-- Article specific meta -->
-    <meta property="article:published_time" content={new Date(entry.date).toISOString()} />
+    <meta
+      property="article:published_time"
+      content={new Date(entry.date).toISOString()}
+    />
     <meta property="article:author" content="Katriga" />
-    {entry.categories && entry.categories.map(category => (
-      <meta property="article:tag" content={category} />
-    ))}
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={`${entry.title} - Katriga Arts Blog`} />
+    <meta property="twitter:title" content={entry.title} />
     <meta property="twitter:description" content={entry.description} />
-    <meta property="twitter:image" content={entry.thumbnail} />
+    <meta property="twitter:image" content={entry.image || entry.thumbnail} />
+    <meta property="twitter:image:alt" content={entry.imageAlt} />
     <meta property="twitter:creator" content="@katriga" />
 
-    <!-- Additional SEO meta -->
-    <meta name="author" content="Katriga" />
-    <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": entry.title,
-        "description": entry.description,
-        "image": entry.image,
-        "author": {
-          "@type": "Person",
-          "name": "Katriga",
-          "url": "https://katriga.art"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Katriga Arts",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://katriga.art/img/logo.png"
-          }
-        },
-        "datePublished": new Date(entry.date).toISOString(),
-        "dateModified": new Date(entry.date).toISOString(),
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": canonicalUrl
-        },
-        "url": canonicalUrl
-      })}
-    </script>
+    <script type="application/ld+json" set:html={jsonLdScript} />
   </Fragment>
 
   <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Blog Header -->
-    <header class="mb-12">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white animate-reveal mb-4">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
-          {entry.title}
-        </span>
+    <!-- Breadcrumb -->
+    <nav class="mb-8">
+      <ol class="flex items-center space-x-2 text-sm text-neutral-400">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li><span class="mx-2">/</span></li>
+        <li>
+          <a href="/blogs" class="hover:text-white transition-colors">Blog</a>
+        </li>
+        <li><span class="mx-2">/</span></li>
+        <li class="text-white">{entry.title}</li>
+      </ol>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+        {entry.title}
       </h1>
-      <div class="flex items-center text-neutral-400 text-sm">
+
+      <div class="flex items-center text-neutral-400 text-sm mb-6">
         <i class="fas fa-calendar-alt mr-2"></i>
-        <time datetime={new Date(entry.date).toISOString()}>{formattedDate}</time>
+        <time datetime={new Date(entry.date).toISOString()}>
+          {formattedDate}
+        </time>
+        <span class="mx-3">•</span>
+        <i class="fas fa-user mr-2"></i>
+        <span>Katriga</span>
       </div>
+
+      <p class="text-xl text-neutral-200 leading-relaxed">
+        {entry.description}
+      </p>
     </header>
 
     <!-- Featured Image -->
-    {entry.image && (
-      <figure class="mb-12 rounded-xl overflow-hidden">
-        <img
-          src={entry.image}
-          alt={entry.imageAlt}
-          class="w-full h-auto max-h-[32rem] object-cover"
-          loading="lazy"
-          width={1200}
-          height={630}
-        />
-        {entry.imageCaption && (
-          <figcaption class="text-center text-neutral-400 text-sm mt-2">
-            {entry.imageCaption}
-          </figcaption>
-        )}
-      </figure>
-    )}
+    {
+      entry.image && (
+        <figure class="mb-12 rounded-xl overflow-hidden">
+          <img
+            src={entry.image}
+            alt={entry.imageAlt}
+            class="w-full h-auto max-h-[32rem] object-contain"
+            loading="eager"
+          />
+          {entry.imageCaption && (
+            <figcaption class="text-center text-neutral-400 text-sm mt-2">
+              {entry.imageCaption}
+            </figcaption>
+          )}
+        </figure>
+      )
+    }
 
     <!-- Blog Content -->
     <section class="post-content max-w-3xl px-4 mx-auto">
       <Fragment set:html={content} />
     </section>
 
-    <!-- Author Bio 
-    <footer class="mt-16 pt-8 border-t border-neutral-700 mb-12">
-      <AuthorBio author={author} />
-    </footer> -->
+    <footer class="mt-12 pt-8 border-t border-neutral-700">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <span class="text-neutral-400 mr-2">Share this post:</span>
+          <div class="flex space-x-2">
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(canonicalUrl)}&text=${encodeURIComponent(entry.title)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-neutral-400 hover:text-white transition-colors"
+            >
+              <i class="fab fa-x-twitter"></i>
+            </a>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-neutral-400 hover:text-white transition-colors"
+            >
+              <i class="fab fa-facebook"></i>
+            </a>
+          </div>
+        </div>
 
+        <a
+          href="/blogs"
+          class="text-white hover:text-neutral-300 transition-colors flex items-center"
+        >
+          <i class="fas fa-arrow-left mr-2"></i>
+          Back to Blog
+        </a>
+      </div>
+    </footer>
   </article>
 </PageLayout>
