@@ -12,8 +12,28 @@ import "../styles/global.css";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <slot name="head" />
-    <link rel="icon" href="/favicon.png" />
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+    <!-- Favicons básicos -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png" />
+
+    <!-- Android Chrome -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/favicon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/favicon-512x512.png"
+    />
+
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
       rel="stylesheet"
@@ -24,7 +44,9 @@ import "../styles/global.css";
     <Header />
     <Sidebar />
     <main>
-      <div class="section py-8 h-screen flex flex-col scrollable lg:px-16 xl:px-24">
+      <div
+        class="section py-8 h-screen flex flex-col scrollable lg:px-16 xl:px-24"
+      >
         <slot />
       </div>
     </main>
