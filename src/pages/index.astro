@@ -36,10 +36,15 @@ const homepageStructuredData = {
     .map(service => ({
       "@type": "Offer",
       "itemOffered": {
-        "@type": "Service",
+        "@type": "Product",
         "name": service.title,
         "description": service.description,
-        "image": [service.img1, service.img2, service.img3].filter(Boolean)
+        "image": [service.img1, service.img2, service.img3].filter(Boolean),
+        "category": "Art & Design Services",
+        "brand": {
+          "@type": "Brand",
+          "name": "Katriga Arts"
+        }
       },
       "price": service.price.replace(/[~$]/g, "").split("–")[0].trim(),
       "priceCurrency": "USD",
