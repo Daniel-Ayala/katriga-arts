@@ -35,10 +35,6 @@ export default defineConfig({
 
   integrations: [
     react(),
-    /*sitemap({
-      filter: (page) => !page.endsWith("addPic") && !page.endsWith("login"),
-      customPages: customPages,
-    }),*/
   ],
   adapter: vercel(),
   security: {
