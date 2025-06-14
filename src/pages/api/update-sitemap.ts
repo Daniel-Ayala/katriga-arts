@@ -27,6 +27,30 @@ export const GET: APIRoute = async ({ request }) => {
       };
     });
     
+    // Read dist folder contents if it exists
+    let distContents = [];
+    const distPath = path.join(currentDir, 'dist');
+    let distExists = false;
+    
+    try {
+      if (fs.existsSync(distPath)) {
+        distExists = true;
+        const distFiles = fs.readdirSync(distPath);
+        distContents = distFiles.map(file => {
+          const filePath = path.join(distPath, file);
+          const stats = fs.statSync(filePath);
+          return {
+            name: file,
+            type: stats.isDirectory() ? 'DIR' : 'FILE',
+            size: stats.isFile() ? stats.size : null,
+            modified: stats.mtime.toISOString()
+          };
+        });
+      }
+    } catch (distError) {
+      console.error("Error reading dist folder:", distError);
+    }
+    
     // Check for specific files we might need
     const importantFiles = [
       'sitemap.xml',
@@ -60,6 +84,21 @@ export const GET: APIRoute = async ({ request }) => {
       logOutput += `${file.type.padEnd(4)} ${file.name}${sizeInfo}\n`;
     });
     
+    // Add dist folder contents
+    if (distExists) {
+      logOutput += `\nDist Folder Contents:\n`;
+      logOutput += `--------------------\n`;
+      logOutput += `Path: ${distPath}\n`;
+      logOutput += `Total items: ${distContents.length}\n\n`;
+      distContents.forEach(file => {
+        const sizeInfo = file.size !== null ? ` (${file.size} bytes)` : '';
+        logOutput += `${file.type.padEnd(4)} ${file.name}${sizeInfo}\n`;
+      });
+    } else {
+      logOutput += `\nDist Folder: NOT FOUND\n`;
+      logOutput += `Expected path: ${distPath}\n`;
+    }
+    
     logOutput += `\nImportant Files Check:\n`;
     logOutput += `----------------------\n`;
     Object.entries(fileExists).forEach(([file, exists]) => {
@@ -69,11 +108,20 @@ export const GET: APIRoute = async ({ request }) => {
     
     logOutput += `\nEnd of file listing\n`;
     console.log(logOutput);
+    
+    return new Response(logOutput, {
+      headers: { "Content-Type": "text/plain" }
+    });
+    
   } catch (error) {
     console.error("Error updating sitemap:", error);
-    return new Response(
-      JSON.stringify({ success: false, message: "Error updating sitemap" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    const errorLog = `[${new Date().toISOString()}] ERROR: Failed to read files\n` +
+                    `Message: ${error.message}\n` +
+                    `Stack: ${error.stack || 'No stack trace available'}\n`;
+    
+    return new Response(errorLog, {
+      status: 500,
+      headers: { "Content-Type": "text/plain" }
+    });
   }
-}
+};
