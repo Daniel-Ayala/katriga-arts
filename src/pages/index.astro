@@ -6,9 +6,55 @@ import AboutSection from '../components/AboutSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
 import TestimonialsSection from '../components/TestimonialsSection.astro';
 import ContactSection from '../components/ContactSection.astro';
+
+// Import services data for structured data
+import servicesData from '../data/services.json';
+let services = servicesData.services;
+
+const homepageStructuredData = {
+  "@context": "https://schema.org",
+  "@type": ["Person", "Artist"],
+  name: "Katriga",
+  alternateName: "Katriga Arts",
+  description: "Digital artist specializing in character illustrations, fantasy art, and custom commissions",
+  url: "https://katriga.art",
+  image: "https://katriga.art/img/banner.webp",
+  sameAs: [
+    "https://twitter.com/katriga",
+    "https://instagram.com/katriga_arts"
+  ],
+  jobTitle: "Digital Artist",
+  knowsAbout: [
+    "Digital Art",
+    "Character Design", 
+    "Fantasy Illustration",
+    "Commission Art",
+    "Digital Painting"
+  ],
+  offers: services
+    .filter(service => !service.filler && service.title !== "Other Services")
+    .map(service => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": service.title,
+        "description": service.description,
+        "image": [service.img1, service.img2, service.img3].filter(Boolean)
+      },
+      "price": service.price.replace(/[~$]/g, "").split("–")[0].trim(),
+      "priceCurrency": "USD",
+      "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Person",
+        "name": "Katriga"
+      }
+    }))
+};
+
 ---
 
-<MainLayout>
+<MainLayout structuredData={homepageStructuredData}>
   <div class="splide__slide">
     <HeroSection />
   </div>

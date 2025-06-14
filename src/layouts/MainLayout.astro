@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 // Default structured data for homepage
+// Default structured data for homepage
 const defaultStructuredData = {
   "@context": "https://schema.org",
   "@type": ["Person", "Artist"],
@@ -25,11 +26,7 @@ const defaultStructuredData = {
     "Digital artist specializing in character illustrations, fantasy art, and custom commissions",
   url: "https://katriga.art",
   image: "https://katriga.art/img/banner.webp",
-  sameAs: [
-    "https://twitter.com/katriga",
-    "https://instagram.com/katriga_arts",
-    // Add your social media URLs
-  ],
+  sameAs: ["https://twitter.com/katriga", "https://instagram.com/katriga_arts"],
   jobTitle: "Digital Artist",
   knowsAbout: [
     "Digital Art",
@@ -46,6 +43,9 @@ const defaultStructuredData = {
     category: "Art & Design Services",
   },
 };
+
+const finalStructuredData = structuredData || defaultStructuredData;
+const jsonLdScript = JSON.stringify(finalStructuredData);
 ---
 
 <!doctype html>
@@ -109,9 +109,7 @@ const defaultStructuredData = {
     />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-      {structuredData || defaultStructuredData}
-    </script>
+    <script type="application/ld+json" set:html={jsonLdScript} />
 
     <style>
       .content {

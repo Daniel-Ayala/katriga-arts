@@ -15,8 +15,6 @@ const sortedEntries = await fetch(apiUrl, {
 })
   .then((response) => response.json());
 
-console.log('Sorted entries:', sortedEntries);
-
 const blogStructuredData = {
   "@context": "https://schema.org",
   "@type": "Blog",
