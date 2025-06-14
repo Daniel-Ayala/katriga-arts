@@ -68,7 +68,7 @@ export const GET: APIRoute = async ({ request }) => {
     });
     
     logOutput += `\nEnd of file listing\n`;
-    console.log(logOutput);export const prerender = false;
+    console.log(logOutput);
   } catch (error) {
     console.error("Error updating sitemap:", error);
     return new Response(
