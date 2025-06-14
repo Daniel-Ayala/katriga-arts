@@ -26,6 +26,7 @@ export const GET: APIRoute = async ({ request }) => {
     
     blogEntries = result.rows;
     console.log(`✅ ${blogEntries.length} blog entries found`);
+    console.log("🔗 Blog entries:", blogEntries.map(entry => entry.slug).join(", "));
   } catch (error) {
     console.error("❌ Error connecting to database:", error);
   }
